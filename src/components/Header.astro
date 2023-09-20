@@ -1,0 +1,59 @@
+---
+import HeaderLink from "./HeaderLink.astro";
+import { SITE_TITLE } from "../consts";
+---
+
+<header>
+  <!-- fondo de arriba -->
+  <div style="position: absolute; top: 0; left: 0; right: 0; z-index:-1;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="var(--color-shadow)"
+        fill-opacity="0.8"
+        d="M0,128L1440,32L1440,0L0,0Z"></path>
+    </svg>
+  </div>
+
+  <nav style="margin-bottom: -15px;">
+    <h2>
+      <a href="/" title={SITE_TITLE}>
+        <img
+          style="z-index: 999999;"
+          src="/comovas.svg"
+          alt=""
+          width="65"
+          height="65"
+        />
+      </a>
+      <h2>
+        <ul>
+          <li>
+            <HeaderLink class="p-2 text-dark" href="/">Inicio</HeaderLink>
+          </li>
+          <li>
+            <HeaderLink class="p-2 text-dark" href="/about">
+              Acerca de
+            </HeaderLink>
+          </li>
+        </ul>
+      </h2>
+    </h2>
+  </nav>
+  <style>
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav a {
+      padding: 1em 0.5em;
+      color: var(--black);
+      border-bottom: 4px solid transparent;
+      text-decoration: none;
+    }
+    nav a.active {
+      text-decoration: none;
+      border-bottom-color: var(--accent);
+    }
+  </style>
+</header>

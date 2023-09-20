@@ -1,0 +1,46 @@
+<header>
+  <figure>
+    <img style="opacity: 1;" src="/comovas_laweb.svg" width="800" />
+  </figure>
+  <figure class="p-figure-bg">
+    <img style="opacity:0.2; width:300px;" src="comovas_laweb.svg" />
+  </figure>
+</header>
+
+<style>
+  .p-figure-bg {
+    overflow: hidden;
+    position: absolute;
+    background-image: linear-gradient(160deg, #118bee15 50%, #e20de92e 50%);
+    z-index: -1;
+    border-radius: 20%;
+    filter: blur(50px);
+    animation: pulse 20s cubic-bezier(0, 0, 0, 0.5) infinite;
+  }
+
+  /*@keyframes pulse {
+    50% {
+      transform: skew(0deg, 180deg) scale(4) rotate(0.6turn);
+    }
+  }*/
+
+  @keyframes pulse {
+    0%,
+    100% {
+      transform: scale(1) translate(30%, -130%); /* Zoom normal */
+    }
+    50% {
+      transform: scale(1.5) translate(30%, -100%); /* Zoom-in */
+    }
+  }
+
+  /* Estilo para dispositivos móviles */
+  @media (max-width: 768px) {
+    .p-figure-bg {
+      width: 100vp; 
+      border-radius: 0; 
+      animation: none; 
+      transform:translateY(-250px); 
+    }
+  }
+</style>

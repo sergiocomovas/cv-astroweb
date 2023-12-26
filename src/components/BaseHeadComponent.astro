@@ -1,8 +1,8 @@
 ---
-// Import the global.css file here so that it is included on
-// all pages through the use of the <HtmlHead /> component.
 import '../styles/mpv.css';
 import '../styles/perso.css';
+
+import { ViewTransitions } from "astro:transitions";
 
 interface Props {
 	title: string;
@@ -20,8 +20,6 @@ const { title, description, image = '/comovas_laweb.png' } = Astro.props;
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/comovas.svg" />
 <meta name="generator" content={Astro.generator} />
-<!--CARRUSEL -->
-<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
@@ -45,3 +43,5 @@ const { title, description, image = '/comovas_laweb.png' } = Astro.props;
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
+<!-- View Transitions -->
+<ViewTransitions />

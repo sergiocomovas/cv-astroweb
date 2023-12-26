@@ -1,5 +1,5 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
-export const SITE_TITLE = 'COMOVAS.es';
-export const SITE_DESCRIPTION = '@comovas';
+export const SITE_TITLE = 'COMO VAS.ES';
+export const SITE_DESCRIPTION = 'La Web de @sergiocomovas';

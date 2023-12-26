@@ -2,7 +2,7 @@
 title: Componentes Web - Lit - WebComponents - Solid - Alpine...
 permalink: webcomonents
 description: Descubre el motivo por los que ahorras tiempo usando Componentes Web incluso si no usas compiladores. 
-pubDate:   '2022-10-31 13:33:00'
+pubDate:   '2023-02-02 13:33:00'
 tags: 
   - microservicios
   - javascript

@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!localStorage.getItem("cookieconsent")) {
     const html = `
     <div class="cookieconsent" 
-    style="position: fixed; padding: 9px; left: 0; top: 0; background-color: #592471; color: #FFF; text-align: center; width: 100%; z-index: 9999;">
+    style="position: fixed; padding: 9px; left: 0; top: 0; background-color: #592471; color: #FFF; text-align: center; width: 100%; z-index: 999;">
         🍪 ⒸⓄⓄⓀⒾⒺⓈ: Acéptalas para 
         <a href="javascript:void(0)" style="color: #e20de9;">[ DESBLOQUEAR ]</a>
         todo el contenido.

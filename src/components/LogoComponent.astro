@@ -1,0 +1,44 @@
+<figure class="flex items-center justify-center p-0 -m-40">
+  <section data-name="fig" class="img-bg"></section>
+  <img data-name="fig" src="/comovas_laweb.svg" alt="Vite Logo" />
+</figure>
+
+<style>
+  figure {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+  }
+
+  .img-bg {
+    position: absolute;
+    opacity: 0.3;
+    background-image: linear-gradient(
+      -45deg,
+      var(--color-link) 50%,
+      var(--color-secondary) 50%
+    );
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    animation: pulse 10s cubic-bezier(0, 0, 0, 0.5) infinite;
+  }
+
+  @keyframes pulse {
+    50% {
+      transform: scale(1);
+    }
+  }
+</style>
+
+<script>
+  const anchoPantalla: number = window.innerWidth;
+  const alturaAnchura: number = anchoPantalla > 768 ? 768 : anchoPantalla - 10;
+
+  document
+    .querySelectorAll<HTMLDivElement>(`[data-name="fig"]`)
+    .forEach((x) => {
+      x.style.height = `${alturaAnchura}px`;
+      x.style.width = `${alturaAnchura}px`;
+    });
+</script>

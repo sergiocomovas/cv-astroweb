@@ -1,0 +1,74 @@
+---
+import HeaderLink from "./HeaderLink.astro";
+import { SITE_TITLE } from "../consts";
+
+const links = [
+  { text: "Inicio", href: "/", class: "hidden md:block" },
+  { text: "Acerca de", href: "/acerca", class: "" },
+];
+---
+
+<header>
+  <div class="corner">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="var(--color-shadow)"
+        fill-opacity="0.8"
+        d="M0,128L1440,32L1440,0L0,0Z"></path>
+    </svg>
+  </div>
+  <nav>
+    <a href="/" title={SITE_TITLE} class="flex items-center">
+      <img src="/comovas.svg" alt="" class="logo mr-2" />
+    </a>
+
+    <ul class="flex space-x-4">
+      {
+        links.map((link) => (
+          <li class={link.class}>
+            <HeaderLink class="text-dark" href={link.href}>
+              {link.text}
+            </HeaderLink>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<style>
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem;
+    position: relative;
+    transform: translateY(-2rem);
+    margin: 0px;
+  }
+
+  nav a {
+    padding: 0.5rem 1rem;
+    color: var(--black);
+    text-decoration: none;
+    transition: border-color 0.3s ease;
+  }
+
+  nav a.active {
+    border-bottom: 4px solid var(--accent);
+  }
+
+  .logo {
+    width: 65px;
+    height: 65px;
+  }
+
+  .corner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  }
+  
+</style>

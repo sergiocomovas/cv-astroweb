@@ -1,28 +1,7 @@
 ---
-import HtmlHead from "../components/HtmlHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import IntroLogo from "../components/IntroLogo.astro";
-import IntroLinks from "../components/IntroLinks.astro";
-import Carrusel from "../components/Carrusel.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import Layout from '../layouts/IndexLayout.astro';
+
 ---
 
-<!doctype html>
-<html lang="es">
-  <head>
-    <HtmlHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <Header title={SITE_TITLE} />
-    <main>
-      <IntroLogo/>
+<Layout/>
 
-      <IntroLinks />
-
-      <Carrusel />
-
-    </main>
-    <Footer />
-  </body>
-</html>

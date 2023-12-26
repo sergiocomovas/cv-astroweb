@@ -1,0 +1,23 @@
+---
+const frontmatter = Astro.props?.frontmatter;
+import Layout from "../layouts/BlogLayout.astro";
+
+let title: string;
+let description: string;
+let pubDate: Date;
+let heroImage: string;
+
+title = frontmatter.title;
+description = frontmatter.description;
+pubDate = new Date(frontmatter.pubDate) || new Date();
+heroImage = frontmatter.heroImage || '';
+---
+
+<Layout
+  title={title}
+  description={description}
+  pubDate={pubDate}
+  heroImage={heroImage}
+>
+  <slot />
+</Layout>

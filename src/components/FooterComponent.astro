@@ -1,0 +1,36 @@
+---
+import Cookie from "../components/CookieComponent";
+import Kofi from "./KofiComponent";
+
+const today = new Date();
+---
+
+<!--FOOTER-->
+<footer class="text-center md:flex md:justify-between">
+  <div class="md:w-1/2 md:text-left mb-4 md:mb-0">
+    <p class="mb-0">
+      CORREO <a
+        class="underline"
+        title="sergio@comovas.es"
+        href="mailto:sergio@comovas.es">sergio@comovas.es</a
+      >
+      <Kofi />
+    </p>
+  </div>
+  <div class="md:w-1/2 md:text-right">
+    <p class="mb-0 opacity-50">
+      COMOVAS.ES &copy; {today.getFullYear()}
+      <br />
+      <img
+        class="z-10 inline"
+        src="/PSM1.svg"
+        alt="Scrum Master"
+        title="Professional Scrum Master PSMI"
+        width="250"
+      />
+    </p>
+  </div>
+</footer>
+
+<!--FIN DE FOOTER-->
+<Cookie client:load />

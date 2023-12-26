@@ -1,0 +1,32 @@
+---
+import BaseHead from "../components/BaseHeadComponent.astro";
+import Footer from "../components/FooterComponent.astro";
+
+import Logo from '../components/LogoComponent.tsx';
+import Cols from '../components/ColsComponent.tsx';
+import Menu from "../components/MenuHorizontalComponent.astro";
+import IntroLinks from "../components/IntroLinksComponent.astro";
+import IntroLinksComponent from "../components/IntroLinksComponent.astro";
+
+
+const { titulo } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="w-100 overflow-x-hidden">
+  <head>
+    <BaseHead title="Hola" description="Página Principal" />
+  </head>
+  <body>
+    <Menu />
+    {titulo}
+    <main>
+      <Logo client:only></Logo>
+      <slot />
+      <Cols client:load>
+      
+    </main>
+    <IntroLinks></IntroLinks>
+    <Footer />
+  </body>
+</html>

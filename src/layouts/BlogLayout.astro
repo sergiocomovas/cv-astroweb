@@ -1,0 +1,182 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHeadComponent.astro";
+import Footer from "../components/FooterComponent.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Menu from "../components/MenuHorizontalComponent.astro";
+import LectorComponent from "../components/LectorComponent";
+
+type Props = CollectionEntry<"blog">["data"];
+
+console.log(Astro.props)
+
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+
+
+const baseImage: string = heroImage ?? "/post_img/placeholder.png";
+---
+
+<html lang="es">
+  <head>
+    <BaseHead title={title} description={description} />
+
+    <style>
+    
+      body {
+        margin: 0;
+        font-family: "Arial", sans-serif;
+      }
+
+      main {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      aside {
+        flex: 0 0 30%; /* Ajusta el ancho del aside según tus necesidades */
+      }
+
+
+
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 18px; /* Estilo adicional, puedes ajustar según tus preferencias */
+      }
+
+      article {
+        flex: 0 0 65%;
+        overflow-x: scroll; /* Ajusta el ancho del artículo según tus necesidades */
+      }
+
+      .prose {
+        padding: 20px; /* Ajusta según sea necesario */
+      }
+
+      .title {
+        margin-bottom: 20px; /* Ajusta según sea necesario */
+      }
+
+      .date,
+      .last-updated-on {
+        font-size: 14px;
+        opacity: 0.9;
+        color: var(--color-secondary); /* Color del texto de la fecha */
+      }
+
+      hr {
+        margin: 15px 0;
+        border: 0;
+        border-top: 1px solid #ddd; /* Color de la línea horizontal */
+      }
+
+      @media (max-width: 768px) {
+        main {
+          flex-direction: column;
+        }
+
+        aside {
+          width: 100%;
+        }
+
+        .hero-image {
+          position: relative;
+          top: initial;
+          padding: 20px 0; /* Ajusta según sea necesario */
+        }
+
+        .title {
+          font-size: 24px; /* Tamaño del título en dispositivos móviles */
+        }
+      }
+
+      /* Reset de estilos para ul y ol */
+      ul,
+      ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      /* Estilos básicos para li */
+      li {
+        margin-bottom: 8px; /* Espaciado entre elementos li */
+      }
+
+      /* Estilos adicionales para ul (lista desordenada) */
+      ul {
+        padding-left: 30px; /* Ajusta la sangría de la lista desordenada */
+      }
+
+      /* Estilos adicionales para ol (lista ordenada) */
+      ol {
+        counter-reset: my-counter; /* Reinicia el contador para una lista ordenada personalizada */
+      }
+
+      ol li {
+        counter-increment: my-counter; /* Incrementa el contador para cada elemento li */
+      }
+
+      ol li:before {
+        content: counter(my-counter) ". "; /* Agrega el número y el punto al comienzo de cada elemento li en una lista ordenada */
+      }
+
+      ul li:before {
+        content: "\2022"; /* Código Unicode para el carácter de círculo */
+        color: #29abe0; /* Color del círculo (puedes ajustarlo según tu diseño) */
+        font-size: 1.2em; /* Tamaño del círculo */
+        display: inline-block;
+        width: 1em;
+        margin-left: -1.3em; /* Ajuste de posición para centrar el círculo */
+      }
+    </style>
+  </head>
+
+  <body>
+    <Menu />
+    <main>
+      <aside>
+        <div class="sticky top-0 p-3">
+
+          <a title="volver al inicio" onclick="javasctipt:window.history.back()"}>
+            <img
+              transition:name={title.replace(/[^A-Za-z0-9]/gi, "")}
+              width={200}
+              height={200}
+              src={baseImage}
+              alt={description}
+            />
+          </a>
+
+          <LectorComponent client:load />
+        </div>
+      </aside>
+
+      <article>
+        <div class="prose">
+          <div class="title">
+            <div class="date">
+              <FormattedDate date={pubDate} />
+              {
+                updatedDate && (
+                  <div class="last-updated-on">
+                    Last updated on <FormattedDate date={updatedDate} />
+                  </div>
+                )
+              }
+            </div>
+            <h1
+              class="text-5xl font-bold leading-tight text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text"
+            >
+              {title}
+            </h1>
+            <hr />
+          </div>
+          <slot />
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>

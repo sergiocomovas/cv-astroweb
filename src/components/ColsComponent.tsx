@@ -66,7 +66,7 @@ const ColScroll = () => {
           <div className="flex justify-between p-2">
             <button
               onClick={() => changeColumn(-1)}
-              class="transition-colors duration-300
+              class="hidden md:block transition-colors duration-300
             focus:outline-none focus:ring  shadow-blue-900  shadow-md"
             >
               Anterior
@@ -74,7 +74,7 @@ const ColScroll = () => {
 
             <button
               onClick={() => changeColumn(1)}
-              class="transition-colors duration-300 focus:outline-none focus:ring  shadow-blue-900  shadow-md"
+              class="hidden md:block transition-colors duration-300 focus:outline-none focus:ring  shadow-blue-900  shadow-md"
             >
               Siguiente
             </button>

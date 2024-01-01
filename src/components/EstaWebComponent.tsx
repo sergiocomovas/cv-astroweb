@@ -113,16 +113,15 @@ const EstaWeb = () => {
         `}
       </style>
 
-      <section class="shine">
-        <h3 class=" font-bold p-0 -mb-5 -m-2">Usado en esta web</h3>
-        
+      <section>
+        <h3 class="hidden md:block font-bold p-0 -mb-5 -m-2">Usado en esta web</h3>
         
         <div class="movimiento flex overflow-x-auto space-x-4 pr-3">
           {coso.map((item) => (
             <aside
               key={item.name}
               onClick={() => abrirDialogo(item)}
-              class="cursor-pointer flex-shrink-0 w-2/5 h-22 transition-border relative block overflow-hidden rounded-lg border border-gray-100 p-4 duration-300 hover:border-purple-600 hover:border-transparent hover:shadow-inner hover:shadow-purple-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:border-purple-300 dark:hover:shadow-inner dark:hover:shadow-blue-700"
+              class="shine cursor-pointer flex-shrink-0 w-2/5 h-22 transition-border relative block overflow-hidden rounded-lg border border-gray-100 p-4 duration-300 hover:border-purple-600 hover:border-transparent hover:shadow-inner hover:shadow-purple-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:border-purple-300 dark:hover:shadow-inner dark:hover:shadow-blue-700"
             >
               <span
                 className={`absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r ${item.color} via-blue-500 dark:via-fuchsia-700 to-purple-600`}
@@ -150,7 +149,7 @@ const EstaWeb = () => {
         </div>
       </section>
       {selectedItem && (
-        <dialog open={dialogOpen} class="dialog p-3">
+        <dialog open={dialogOpen} class="dialog p-3 w-full md:w-80">
           <h2 class={`text-lg2 font-extrabold bg-clip-text text-transparent bg-gradient-to-r ${selectedItem.color}  to-gray-900 `}>
             {selectedItem.name}
           </h2>

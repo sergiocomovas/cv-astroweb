@@ -23,10 +23,11 @@ const { titulo } = Astro.props;
     <Menu />
 
     <slot />
-    <div class="-mt-3"><Logo client:only /></div>
+    <main><Logo client:only /></main>
+
     <div class="mb-10"><EstaWeb client:only /></div>
 
-    <main class="-mt-40">
+    <main class="-mt-20 md:-mt-40">
       <Cols client:load />
     </main>
 

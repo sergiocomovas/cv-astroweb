@@ -2,12 +2,14 @@
 import BaseHead from "../components/BaseHeadComponent.astro";
 import Footer from "../components/FooterComponent.astro";
 
-import Logo from '../components/LogoComponent.tsx';
-import Cols from '../components/ColsComponent.tsx';
+import Logo from "../components/LogoComponent.tsx";
+
+import EstaWeb from "../components/EstaWebComponent.tsx";
+
+import Cols from "../components/ColsComponent.tsx";
 import Menu from "../components/MenuHorizontalComponent.astro";
 import IntroLinks from "../components/IntroLinksComponent.astro";
 import IntroLinksComponent from "../components/IntroLinksComponent.astro";
-
 
 const { titulo } = Astro.props;
 ---
@@ -19,14 +21,16 @@ const { titulo } = Astro.props;
   </head>
   <body>
     <Menu />
-    {titulo}
-    <main>
-      <Logo client:only></Logo>
-      <slot />
-      <Cols client:load>
-      
+
+    <slot />
+    <div class="-mt-3"><Logo client:only /></div>
+    <div class="mb-10"><EstaWeb client:only /></div>
+
+    <main class="-mt-40">
+      <Cols client:load />
     </main>
-    <IntroLinks></IntroLinks>
+
+    <IntroLinks />
     <Footer />
   </body>
 </html>

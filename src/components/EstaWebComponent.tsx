@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks";
+import { useState, useRef } from "preact/hooks";
 
 const EstaWeb = () => {
   type Tecnologia = {
@@ -10,8 +10,8 @@ const EstaWeb = () => {
     meGusta: string;
     tecnologiaUsadaPor: string;
   };
-  
-  const coso:Tecnologia[] = [
+
+  const coso: Tecnologia[] = [
     {
       name: "Astro",
       color: "from-orange-500",
@@ -51,7 +51,7 @@ const EstaWeb = () => {
       tipo: "Framework de CSS",
       descripcion:
         "Tailwind CSS es un marco de trabajo utilitario de CSS de bajo nivel para construir interfaces de usuario.",
-      meGusta: "Por su enfoque utilitario y su capacidad de personalización.",
+      meGusta: "Por facilidad de uso al centrar elementos. Además trabaja conjunto con cualquier hojas de estilo CSS",
       tecnologiaUsadaPor: "Nivel máximo de Empleabilidad 2024",
     },
     {
@@ -90,6 +90,26 @@ const EstaWeb = () => {
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<Tecnologia | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const mostrarSiguienteItem = () => {
+    const nextIndex = (currentIndex + 1) % coso.length;
+    setCurrentIndex(nextIndex);
+    abrirDialogo(coso[nextIndex]);
+  };
+
+  const handleWheel = (e: WheelEvent) => {
+    e.preventDefault();
+    const delta = e.deltaY || e.deltaX;
+
+    if (containerRef.current) {
+      containerRef.current.scrollLeft += delta;
+    }
+
+    // Evitar que el evento se propague y afecte el desplazamiento vertical
+    e.stopPropagation();
+  };
 
   const abrirDialogo = (item: Tecnologia) => {
     setSelectedItem(item);
@@ -114,14 +134,20 @@ const EstaWeb = () => {
       </style>
 
       <section>
-        <h3 class="hidden md:block font-bold p-0 -mb-5 -m-2">Usado en esta web</h3>
-        
-        <div class="movimiento flex overflow-x-auto space-x-4 pr-3">
+        <h3 class="hidden md:block font-bold p-0 -mb-5 -m-2">
+          Usado en esta web
+        </h3>
+
+        <div
+          ref={containerRef}
+          class="movimiento flex overflow-x-auto space-x-4 pr-3 opacity-80 hover:opacity-100 transition-opacity"
+          onWheel={handleWheel}
+        >
           {coso.map((item) => (
             <aside
               key={item.name}
               onClick={() => abrirDialogo(item)}
-              class="shine cursor-pointer flex-shrink-0 w-2/5 h-22 transition-border relative block overflow-hidden rounded-lg border border-gray-100 p-4 duration-300 hover:border-purple-600 hover:border-transparent hover:shadow-inner hover:shadow-purple-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:border-purple-300 dark:hover:shadow-inner dark:hover:shadow-blue-700"
+              class="shine cursor-pointer flex-shrink-0  w-2/5 h-22 transition-border relative block overflow-hidden rounded-lg border border-gray-100 p-4 duration-300 hover:border-purple-600 hover:border-transparent hover:shadow-inner hover:shadow-purple-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:border-purple-300 dark:hover:shadow-inner dark:hover:shadow-blue-700"
             >
               <span
                 className={`absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r ${item.color} via-blue-500 dark:via-fuchsia-700 to-purple-600`}
@@ -149,19 +175,31 @@ const EstaWeb = () => {
         </div>
       </section>
       {selectedItem && (
-        <dialog open={dialogOpen} class="dialog p-3 w-full md:w-80">
-          <h2 class={`text-lg2 font-extrabold bg-clip-text text-transparent bg-gradient-to-r ${selectedItem.color}  to-gray-900 `}>
-            {selectedItem.name}
-          </h2>
+        <dialog open={dialogOpen} class="dialog p-3 w-full h-50 md:w-auto">
+          <div class="h-80 overflow-y-auto">
+            <h2
+              class={`text-lg2 font-extrabold bg-clip-text text-transparent bg-gradient-to-r ${selectedItem.color}  to-gray-900 `}
+            >
+              {selectedItem.name}
+            </h2>
+            <div
+              className={`bg-gradient-to-r ${selectedItem.color} to-gray-900 text-blue-100 rounded p-1 flex items-center justify-center h-auto`}
+            >
+              <p class="text-center">
+                Stack seleccionado por: {selectedItem.tecnologiaUsadaPor}
+              </p>
+            </div>
 
-          <p class="font-semibold">{selectedItem.descripcion}</p>
-          <p>Me gusta por: {selectedItem.meGusta}</p>
-          <p
-            className={`bg-gradient-to-r ${selectedItem.color} to-gray-900 text-blue-100 rounded p-1`}
-          >
-            Stack seleccionado por: {selectedItem.tecnologiaUsadaPor}
-          </p>
+            <p class="font-semibold">{selectedItem.descripcion}</p>
+            <p>Me gusta por: {selectedItem.meGusta}</p>
+          </div>
           <button onClick={cerrarDialogo}>Cerrar</button>
+          <button
+            onClick={mostrarSiguienteItem}
+            class=" float-right hidden md:block"
+          >
+            Siguiente
+          </button>
         </dialog>
       )}
     </>

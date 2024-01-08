@@ -1,14 +1,17 @@
+var oldScrollLeft;
 
-var oldY;
-
-var vPagina = document.querySelector("html");
 var hDeslizante = document.querySelector(".scrollmenu");
 
-hDeslizante.addEventListener("wheel", (e) => {
+hDeslizante.addEventListener("wheel", function(e) {
   e.preventDefault();
-  hDeslizante.scrollLeft += e.deltaY;
-  if (hDeslizante.scrollLeft == oldY) {
-    vPagina.scrollTop += e.deltaY;
+  var delta = e.deltaY || e.deltaX; // Manejar diferentes navegadores
+  hDeslizante.scrollLeft += delta;
+
+  if (hDeslizante.scrollLeft === oldScrollLeft) {
+    // Evitar el desplazamiento vertical de la página si no hay desplazamiento horizontal
+    e.stopPropagation();
+    return false;
   }
-  oldY = hDeslizante.scrollLeft;
+
+  oldScrollLeft = hDeslizante.scrollLeft;
 });

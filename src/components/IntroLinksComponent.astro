@@ -1,18 +1,11 @@
 ---
 const datos = [
   {
-    id: "2",
-    img: "logo_palmainfo.png",
-    tipo: "Palma Info y Sucesos Asombrosos",
-    desc: "Comunidad y grupo de Telegram",
-    url: "https://twitter.com/i/communities/1527611374611857410",
-  },
-  {
     id: "3",
     img: "logo_dev.png",
-    tipo: "Dev",
-    desc: "Tecnologías que me gustan",
-    url: "https://cosasdev.comovas.es",
+    tipo: "sergiocomovas",
+    desc: "Repositorio de GITHUB",
+    url: "https://github.com/sergiocomovas/",
   },
   {
     id: "4",
@@ -28,17 +21,31 @@ const datos = [
     desc: "Cuenta de threads",
     url: "https://www.threads.net/@sergiocomovas",
   },
+  {
+    id: "2",
+    img: "logo_palmainfo.png",
+    tipo: "Palma Info y Sucesos Asombrosos",
+    desc: "Comunidad y grupo de Telegram",
+    url: "https://twitter.com/i/communities/1527611374611857410",
+  },
 ];
 ---
 
 <div class="row-full row-perso">
   <header style="margin-top:0px;">
-    <h2>Otras páginas</h2>
+    <div class="grid grid-cols-1">
+      <h3 class="hidden text-center md:block font-bold mb-4">Enlaces externos y RRSS</h3>
+    </div>
 
     <div class="scrollmenu row-full hover:???">
       {
         datos.map((d) => (
-          <a class="scrollele shine" style="font-size:0.5rem" href={d.url} target="_blank">
+          <a
+            class="scrollele shine"
+            style="font-size:0.5rem"
+            href={d.url}
+            target="_blank"
+          >
             <figure class="avatar" style="float:left; padding: 5px;">
               <img
                 style="border-radius:100%; filter: opacity(99%) blur(0.1px);"
@@ -48,7 +55,9 @@ const datos = [
             </figure>
             <h3 class="h3perso whitespace-nowrap">
               {d.tipo}
-              <span style="opacity:60%" class="whitespace-nowrap">{d.desc}</span>
+              <span style="opacity:60%" class="whitespace-nowrap">
+                {d.desc}
+              </span>
             </h3>
           </a>
         ))
@@ -131,7 +140,6 @@ const datos = [
     vertical-align: center;
   }
 
-
   @keyframes bg-move {
     0% {
       background-position: -500px 0;
@@ -140,8 +148,6 @@ const datos = [
       background-position: 1000px 0;
     }
   }
-
-
 
   a.scrollele:last-child {
     margin-right: 100px !important;

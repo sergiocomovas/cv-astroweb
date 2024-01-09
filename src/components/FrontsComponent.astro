@@ -1,0 +1,169 @@
+---
+const datos = [
+  {
+    logo: "logos_front_2024/codeigniter.svg",
+    url: "https://tbot.comovas.es/",
+    nombre: "CodeIgniter Tbot",
+    descripcion: "Proyecto desarrollado en PHP con CodeIgniter para Tbot.",
+  },
+  {
+    logo: "logos_front_2024/express.svg",
+    url: "https://express.cosasdev.comovas.es",
+    nombre: "Express.js API",
+    descripcion: "API desarrollada con Node.js y Express.js.",
+  },
+  {
+    logo: "logos_front_2024/strapi.svg",
+    url: "https://sbot.comovas.es/",
+    nombre: "Strapi Sbot",
+    descripcion: "Headless CMS desarrollado con Node.js y Strapi.",
+  },
+  {
+    logo: "logos_front_2024/gsheet.svg",
+    url: "https://express.cosasdev.comovas.es",
+    nombre: "Gsx2json Gbot",
+    descripcion: "Headless CMS desarrollado con Node.js y Gsx2json.",
+  },
+  {
+    logo: "logos_front_2024/telegram.svg",
+    url: "https://telegraph.comovas.es",
+    nombre: "Telegraf",
+    descripcion: "Headless CMS desarrollado con Node.js y Telegraf.",
+  },
+  {
+    logo: "logos_front_2024/knex.svg",
+    url: "https://knexjs.org/",
+    nombre: "Knex.js",
+    descripcion: "Constructor de consultas SQL para Node.js.",
+  },
+];
+---
+
+<section class="-mt-14">
+  <div class="max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
+    <div class="grid grid-cols-1">
+      <h3 class="hidden text-center md:block font-bold">
+        Información para Reclutadores
+      </h3>
+    </div>
+    <div
+      class="block rounded-xl border border-cyan-500 p-4 mb-4 shadow-sm hover:border-cyan-600 hover:ring-1 hover:ring-cyan-600 focus:outline-none focus:ring"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="mb-4 md:mb-0 col-span-4 md:col-span-3">
+          <div
+            class="bg-gradient-to-r from-cyan-600 text-white p-4 rounded-md mb-2 md:mb-0"
+          >
+            <h2 class="text-2xl font-bold mb-2">¡OPEN TO WORK!</h2>
+            <p class="text-md">
+              Explora mis proyectos en <a target="_blank" href="https://cosasdev.comovas.es" class="shine cursor-pointer"><code>React</code></a>, <a target="_blank" href="https://sidet.cosasdev.comovas.es/#/tareas" class="shine cursor-pointer"><code>Vue, Mysql y PHP</code></a> de entrevistas
+              técnicas en 2022 que me abrieron las puertas al éxito profesional.
+              Lee sobre mi transformación en <a target="_blank" href="https://www.linkedin.com/feed/update/urn:li:activity:6956973379648118784/" class="shine cursor-pointer"><code>Scrum Master profesional</code></a>.
+            </p>
+            <p class="font-bold text-lg">
+              Revisa mi CV y conecta conmigo en LinkedIn.
+            </p>
+          </div>
+        </div>
+        <div
+          class="col-span-4 md:col-span-1 w-full flex flex-col justify-end items-center"
+        >
+          <a
+            href="https://www.linkedin.com/in/sergiocomovas/"
+            target="_blank"
+            class="bg-cyan-600 text-white py-3 px-6 rounded-full hover:bg-cyan-300 hover:text-black transition duration-300 ease-in-out"
+          >
+            🚀 ¡VER CV EN MI PERFIL DE LINKEDIN!
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1">
+      <h3 class="hidden text-center md:block font-bold">
+        Explora mis APIS y Frontends
+      </h3>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 sm:grid-cols-6">
+      {
+        datos.map((d) => (
+          <a
+            target="_blank"
+            class="block rounded-xl border border-cyan-500 p-4 shadow-sm hover:border-cyan-600 hover:ring-1 hover:ring-cyan-600 focus:outline-none focus:ring"
+            href={d.url}
+          >
+            <span class="inline-block rounded-lg bg-gray-50 p-3">
+              <img src={d.logo} alt={d.nombre} />
+            </span>
+
+            <span class="mt-2 font-bold">{d.nombre}</span>
+
+            <p class="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+              {d.descripcion}
+            </p>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="grid grid-cols-1 mt-4">
+      <h3 class="hidden text-center md:block font-bold">
+        El inglés es para todos
+      </h3>
+    </div>
+
+    <div
+      class="block rounded-xl border border-cyan-500 p-4 shadow-sm hover:border-cyan-600 hover:ring-1 hover:ring-cyan-600 focus:outline-none focus:ring"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div
+          class="mb-4 md:mb-0 col-span-1 md:col-span-2 p-4 rounded-md bg-slate-50 text-black"
+        >
+          <img class="w-1/2" src="/logos_preply/preply.png" alt="Preply Logo" />
+          <p class="text-sm">
+            <span class="text-xl">
+              <code class="mr-2 bg-black text-white">LOGRO DESBLOQUEADO</code
+              >Tengo más de 300 horas de práctica hablada, avalado por la
+              certificación de la academia de idiomas PREPLY.
+            </span>
+          </p>
+        </div>
+
+        <div class="col-span-1 md:col-span-3 p-4 rounded-md">
+          <p class="text-white">
+            Aprender inglés como adulto resultó una tarea aburrida hasta que
+            tuve la posibilidad de hacer clases online con un tutor personal.
+            Eso me hizo ser gran defensor de este método de aprendizaje.
+          </p>
+          <p class="font-bold mt-2">
+            En mi artículo te lo explico todo. Usa el enlace (referido) para
+            obtener un descuento para tu primera clase.
+          </p>
+
+          <a
+            href="https://www.linkedin.com/pulse/c%2525C3%2525B3mo-consegu%2525C3%2525AD-hablar-ingl%2525C3%2525A9s-sergio-r-gonz%2525C3%2525A1lez%3FtrackingId=SqMQTomISjeQ58ixZOclYg%253D%253D/?trackingId=SqMQTomISjeQ58ixZOclYg%3D%3D"
+            target="_blank"
+            class="bg-black block w-full mt-2 ml-3 float-right lg:w-max text-white py-3 px-6 rounded-full hover:bg-cyan-300 hover:text-black transition duration-300 ease-in-out"
+          >
+            📢 LEER ARTÍCULO
+          </a>
+
+          <a
+            href="https://preply.com/es/?pref=MTEwMTEwMg==&id=1704804102.353758"
+            target="_blank"
+            class="bg-white block w-full mt-2 border float-right ml-3 lg:w-max border-black text-black py-3 px-6 rounded-full  hover:bg-black hover:text-cyan-300 hover:underline transition duration-300 ease-in-out"
+          >
+           🥰 ¡OBTENER DESCUENTO!
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  a {
+    text-decoration: none;
+  }
+</style>

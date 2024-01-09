@@ -9,7 +9,7 @@ import EstaWeb from "../components/EstaWebComponent.tsx";
 import Cols from "../components/ColsComponent.tsx";
 import Menu from "../components/MenuHorizontalComponent.astro";
 import IntroLinks from "../components/IntroLinksComponent.astro";
-import IntroLinksComponent from "../components/IntroLinksComponent.astro";
+import Fronts from "../components/FrontsComponent.astro";
 
 const { titulo } = Astro.props;
 ---
@@ -30,8 +30,10 @@ const { titulo } = Astro.props;
     <main class="-mt-20 md:-mt-40">
       <Cols client:load />
     </main>
-
+    <Fronts></Fronts>
     <IntroLinks />
+   
+    
     <Footer />
     <script is:inline src="../scripts/hscroll.js"></script>
  

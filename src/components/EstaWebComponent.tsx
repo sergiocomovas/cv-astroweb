@@ -61,7 +61,7 @@ const EstaWeb = () => {
       tumb: "canary.svg",
       descripcion:
         "View Transitions es una técnica para crear transiciones suaves entre vistas en aplicaciones web.",
-      meGusta: "Por su capacidad para mejorar la experiencia del usuario.",
+      meGusta: "Por su capacidad para mejorar la experiencia del usuario con animaciones profesionales.",
       tecnologiaUsadaPor: "Exclusividad",
     },
     {
@@ -176,7 +176,7 @@ const EstaWeb = () => {
       </section>
       {selectedItem && (
         <dialog open={dialogOpen} class="dialog p-3 w-full h-50 md:w-auto">
-          <div class="h-80 overflow-y-auto">
+          <div class="h-90 overflow-y-auto">
             <h2
               class={`text-lg2 font-extrabold bg-clip-text text-transparent bg-gradient-to-r ${selectedItem.color}  to-gray-900 `}
             >
@@ -186,12 +186,13 @@ const EstaWeb = () => {
               className={`bg-gradient-to-r ${selectedItem.color} to-gray-900 text-blue-100 rounded p-1 flex items-center justify-center h-auto`}
             >
               <p class="text-center">
-                Stack seleccionado por: {selectedItem.tecnologiaUsadaPor}
+              <span class="font-semibold">Stack seleccionado por:</span> {selectedItem.tecnologiaUsadaPor}
               </p>
             </div>
 
-            <p class="font-semibold">{selectedItem.descripcion}</p>
-            <p>Me gusta por: {selectedItem.meGusta}</p>
+            <p class="font-semibold">👉 {selectedItem.descripcion}</p>
+            <p>💖 <span class="font-extrabold">Me gusta por:</span> {selectedItem.meGusta}</p>
+            <p>🔗 <span class="hidden md:block font-extrabold">Enlace relacionado:</span> <a href="https://www.linkedin.com/pulse/tengo-nueva-web-y-te-lo-cuento-sergio-r-gonz%2525C3%2525A1lez%3FtrackingId=%252BEO0gQ%252BTScqjhfPlOOniPw%253D%253D/?trackingId=%2BEO0gQ%2BTScqjhfPlOOniPw%3D%3D" target="_blank">Tengo nueva web ¡y te lo cuento! ↗</a></p>
           </div>
           <button onClick={cerrarDialogo}>Cerrar</button>
           <button

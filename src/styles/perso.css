@@ -82,6 +82,16 @@ nav ul li ul {
   right: -2px;
 }
 
+ul:not(nav ul) {
+  list-style: none;
+  padding-left: 10px;
+}
+
+ul:not(nav ul) li:before {
+  content: '👉'; 
+  margin-right: 5px; 
+}
+
 /*cards*/
 .figure-container {
   border-radius: 5px 5px 0px 0px;

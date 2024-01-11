@@ -8,11 +8,9 @@ import LectorComponent from "../components/LectorComponent";
 
 type Props = CollectionEntry<"blog">["data"];
 
-console.log(Astro.props)
+console.log(Astro.props);
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
-
-
 
 const baseImage: string = heroImage ?? "/post_img/placeholder.png";
 ---
@@ -20,9 +18,10 @@ const baseImage: string = heroImage ?? "/post_img/placeholder.png";
 <html lang="es">
   <head>
     <BaseHead title={title} description={description} />
+  </head>
 
+  <body>
     <style>
-    
       body {
         margin: 0;
         font-family: arial, "Arial", "Atkinson", sans-serif;
@@ -36,8 +35,6 @@ const baseImage: string = heroImage ?? "/post_img/placeholder.png";
       aside {
         flex: 0 0 30%; /* Ajusta el ancho del aside según tus necesidades */
       }
-
-
 
       img {
         width: 100%;
@@ -71,6 +68,16 @@ const baseImage: string = heroImage ?? "/post_img/placeholder.png";
         border-top: 1px solid #ddd; /* Color de la línea horizontal */
       }
 
+      ul li {
+        color:red;
+        background-color: purple !important;
+        color:blue;
+      }
+      
+      .cookies{
+        color:green
+      }
+
       @media (max-width: 768px) {
         main {
           flex-direction: column;
@@ -90,56 +97,18 @@ const baseImage: string = heroImage ?? "/post_img/placeholder.png";
           font-size: 24px; /* Tamaño del título en dispositivos móviles */
         }
       }
-
-      /* Reset de estilos para ul y ol */
-      ul,
-      ol {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      /* Estilos básicos para li */
-      li {
-        margin-bottom: 8px; /* Espaciado entre elementos li */
-      }
-
-      /* Estilos adicionales para ul (lista desordenada) */
-      ul {
-        padding-left: 30px; /* Ajusta la sangría de la lista desordenada */
-      }
-
-      /* Estilos adicionales para ol (lista ordenada) */
-      ol {
-        counter-reset: my-counter; /* Reinicia el contador para una lista ordenada personalizada */
-      }
-
-      ol li {
-        counter-increment: my-counter; /* Incrementa el contador para cada elemento li */
-      }
-
-      ol li:before {
-        content: counter(my-counter) ". "; /* Agrega el número y el punto al comienzo de cada elemento li en una lista ordenada */
-      }
-
-      ul li:before {
-        content: "\2022"; /* Código Unicode para el carácter de círculo */
-        color: #29abe0; /* Color del círculo (puedes ajustarlo según tu diseño) */
-        font-size: 1.2em; /* Tamaño del círculo */
-        display: inline-block;
-        width: 1em;
-        margin-left: -1.3em; /* Ajuste de posición para centrar el círculo */
-      }
+     
     </style>
-  </head>
 
-  <body>
     <Menu />
     <main>
       <aside>
         <div class="sticky top-0 p-3">
-
-          <a title="volver al inicio" onclick="javasctipt:window.history.back()"}>
+          <a
+            title="volver al inicio"
+            onclick="javasctipt:window.history.back()"
+            }
+          >
             <img
               transition:name={title.replace(/[^A-Za-z0-9]/gi, "")}
               width={200}

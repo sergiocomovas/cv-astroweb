@@ -34,7 +34,9 @@ const datos = [
 <div class="row-full row-perso">
   <header style="margin-top:0px;">
     <div class="grid grid-cols-1">
-      <h3 class="hidden text-center md:block font-bold mb-4">Enlaces externos y RRSS</h3>
+      <h3 class="hidden text-center md:block font-bold mb-4">
+        Enlaces externos y RRSS
+      </h3>
     </div>
 
     <div class="scrollmenu row-full hover:???">
@@ -51,6 +53,7 @@ const datos = [
                 style="border-radius:100%; filter: opacity(99%) blur(0.1px);"
                 src={`logos_cv_2022/${d.img}`}
                 alt={d.img}
+                loading="lazy"
               />
             </figure>
             <h3 class="h3perso whitespace-nowrap">

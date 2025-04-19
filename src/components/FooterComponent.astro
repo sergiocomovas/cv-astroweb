@@ -1,6 +1,9 @@
 ---
 import Cookie from "../components/CookieComponent";
 import Kofi from "./KofiComponent";
+import { Image } from "astro:assets";
+
+import imgScrum from "../../public/PSM1.svg";
 
 const today = new Date();
 ---
@@ -21,9 +24,9 @@ const today = new Date();
     <p class="mb-0 opacity-50">
       COMOVAS.ES &copy; {today.getFullYear()}
       <br />
-      <img
+      <Image
         class="z-10 inline"
-        src="/PSM1.svg"
+        src={imgScrum}
         alt="Scrum Master"
         title="Professional Scrum Master PSMI"
         width="250"

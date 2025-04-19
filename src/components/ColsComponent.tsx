@@ -1,10 +1,7 @@
 import { useState, useEffect } from "preact/hooks";
-import { getCollection } from "astro:content";
-const posts = (await getCollection("blog"))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 15);
 
-const ColScroll = () => {
+// El componente ahora recibe los posts como props
+const ColScroll = ({ posts }) => {
   const [selectedColumn, setSelectedColumn] = useState(1);
 
   const changeColumn = (direction) => {
@@ -66,7 +63,7 @@ const ColScroll = () => {
           <div className="flex justify-between p-2">
             <button
               onClick={() => changeColumn(-1)}
-              class="hidden md:block transition-colors duration-300
+              class="transition-colors duration-300
             focus:outline-none focus:ring  shadow-blue-900  shadow-md"
             >
               Anterior
@@ -74,7 +71,7 @@ const ColScroll = () => {
 
             <button
               onClick={() => changeColumn(1)}
-              class="hidden md:block transition-colors duration-300 focus:outline-none focus:ring  shadow-blue-900  shadow-md"
+              class="transition-colors duration-300 focus:outline-none focus:ring  shadow-blue-900  shadow-md"
             >
               Siguiente
             </button>
@@ -142,3 +139,4 @@ const ColScroll = () => {
 };
 
 export default ColScroll;
+//

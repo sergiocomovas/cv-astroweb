@@ -11,7 +11,13 @@ import Menu from "../components/MenuHorizontalComponent.astro";
 import IntroLinks from "../components/IntroLinksComponent.astro";
 import Fronts from "../components/FrontsComponent.astro";
 
-const { titulo } = Astro.props;
+import { getCollection } from "astro:content"; // Usamos la API de contenido de Astro
+import GlobeBackgroundComponent from "../components/GlobeBackgroundComponent.astro";
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 15);
+
+//const { titulo } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,19 +29,20 @@ const { titulo } = Astro.props;
     <Menu />
 
     <slot />
-    <main><Logo client:only /></main>
+
+
+
+  <GlobeBackgroundComponent />
 
     <div class="mb-10"><EstaWeb client:only /></div>
 
     <main class="-mt-20 md:-mt-40">
-      <Cols client:load />
+      <Cols posts={posts} client:only />
     </main>
-    <Fronts></Fronts>
+    <Fronts />
     <IntroLinks />
-   
-    
+
     <Footer />
     <script is:inline src="../scripts/hscroll.js"></script>
- 
   </body>
 </html>

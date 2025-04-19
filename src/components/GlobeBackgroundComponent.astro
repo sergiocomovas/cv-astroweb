@@ -1,0 +1,130 @@
+---
+// GlobeBackgroundCyber.astro
+const { mensaje = "¡Hola!" } = Astro.props;
+
+const defaultWidth = Math.min(
+  768,
+  typeof window !== "undefined" ? window.innerWidth - 10 : 768
+);
+---
+
+<div
+  data-mensaje={mensaje}
+  id="cyberContainer"
+  class="relative flex items-center justify-center -mt-20"
+>
+  <section
+    id="img-bg"
+    class="absolute opacity-30 rounded-full z-[-1] animate-pulse h-[100vw] w-[100vw] bg-[linear-gradient(-45deg,var(--color-link)_50%,var(--color-secondary)_50%)] blur-[80px]"
+  >
+  </section>
+
+  <div
+    id="cyberGlobe"
+    class="w-full p-1 font-mono overflow-hidden flex  bg-transparent blur-[0.7px] text-[2vw] tracking-[0.5vw] after:content-[''] after:inline-block blur-[1px] after:w-full"
+  >
+  
+  </div>
+</div>
+
+<style>
+  @keyframes pulseDiagonal {
+    0% {
+      transform: translate(-50%, -50%) rotate(-10deg) scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: translate(-50%, -50%) rotate(-10deg) scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(-10deg) scale(1);
+      opacity: 1;
+    }
+  }
+</style>
+
+<style>
+  .img-bg {
+    position: absolute;
+    opacity: 0.4;
+    background-image: linear-gradient(
+      -45deg,
+      var(--color-link) 50%,
+      var(--color-secondary) 50%
+    );
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    animation: pulse 10s cubic-bezier(0, 0, 0, 0.5) infinite;
+  }
+
+  @keyframes pulse {
+    50% {
+      transform: scale(1);
+    }
+  }
+</style>
+
+<script is:inline>
+  // Código del globo animado (se mantiene sin cambios)
+  eval(
+    (z =
+      'p="<"+"pre>"/* ,.oq#+     ,._, */;for(y in n="zw24l6k\
+4e3t4jnt4qj24xh2 x/* =<,m#F^    A W###q. */42kty24wrt413n243n\
+9h243pdxt41csb yz/* #K       q##H######Am */43iyb6k43pk7243nm\
+r24".split(4)){/* dP      cpq#q##########b, */for(a in t=pars\
+eInt(n[y],36)+/*         p##@###YG=[#######y */(e=x=r=[]))for\
+(r=!r,i=0;t[a/*         d#qg `*PWo##q#######D */]>i;i+=.05)wi\
+th(Math)x-= /*        sergiorig Q###KWR#### W[ */.05,0<cos(o=\
+new Date/1e3/*      .Q#########Md#.###OP  A@ , */-x/PI)&&(e[~\
+~(32*sin(o)*/* ,    (W#####Xx######.P^     T % */sin(.5+y/7))\
++60] =-~ r);/* #y    `^TqW####P###BP           */for(x=0;122> \
+x;)p+="   *#"/* b.        OQ####x#K           */[e[x++]+e[x++\
+]]||(S=("eval"/* l         `X#####D  ,       */+"(z=\'"+z.spl\
+it(B = "\\\\")./*           G####B" #       */join(B+B).split\
+(Q="\'").join(B+Q/*          VQBP`        */)+Q+")//m1k")[x/2\
++61*y-1]).fontcolor/*         TP         */(/\\w/.test(S)&&"#\
+03B");document.getElementById("cyberGlobe").innerHTML=p+=B+"\\n"}setTimeout(z)')
+  );
+
+  // overlay2 de bienvenida con efecto pulsante y diagonal
+
+  //miro la prop
+  let msg = document.querySelector(`#cyberContainer`).dataset.mensaje;
+
+  const overlay2 = document.createElement("div");
+  overlay2.innerHTML = msg;
+  overlay2.id = "cyberOverlay2";
+  Object.assign(overlay2.style, {
+    position: "absolute",
+    top: "20%",
+    left: "20%",
+    transform: "translate(-50%, -50%) rotate(-10deg)",
+    zIndex: "998", // Queda sobre el resto
+    color: "#FFF",
+    fontFamily: "monospace, sans-serif",
+    fontSize: "4vw",
+    textAlign: "center",
+    padding: "4wv 5wv",
+    animation: "pulseDiagonal 10s ease-in-out infinite",
+  });
+  document.getElementById("cyberContainer").appendChild(overlay2);
+
+  // overlay2 para la imagen vectorial (SVG) con efecto neon
+  const vectorImage2 = document.createElement("img");
+  vectorImage2.src = "/comovas_laweb.svg";
+  vectorImage2.alt = "Imagen vectorial";
+  Object.assign(vectorImage2.style, {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    zIndex: "998", // Entre el fondo desenfocado y el texto
+    width: "50vw", // Responsivo
+    height: "auto",
+    maxWidth: "100%",
+    filter: "drop-shadow(0 0 15px #ff00ff50)",
+  });
+  document.getElementById("cyberContainer").appendChild(vectorImage2);
+</script>

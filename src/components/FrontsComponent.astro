@@ -56,9 +56,21 @@ const datos = [
           >
             <h2 class="text-2xl font-bold mb-2">¡OPEN TO WORK!</h2>
             <p class="text-md">
-              Explora mis proyectos en <a target="_blank" href="https://cosasdev.comovas.es" class="shine cursor-pointer"><code>React</code></a>, <a target="_blank" href="https://sidet.cosasdev.comovas.es/#/tareas" class="shine cursor-pointer"><code>Vue, Mysql y PHP</code></a> de entrevistas
-              técnicas en 2022 que me abrieron las puertas al éxito profesional.
-              Lee sobre mi transformación en <a target="_blank" href="https://www.linkedin.com/pulse/scrum-est%2525C3%2525A1-a%2525C3%2525BAn-de-moda-sergio-r-gonz%2525C3%2525A1lez-fbnwe%3FtrackingId=tHUnKoIbQfGxig%252F1Oo1MXg%253D%253D/?trackingId=tHUnKoIbQfGxig%2F1Oo1MXg%3D%3D" class="shine cursor-pointer"><code>Scrum Master profesional</code></a>.
+              Explora mis proyectos en <a
+                target="_blank"
+                href="https://cosasdev.comovas.es"
+                class="shine cursor-pointer"><code>React</code></a
+              >, <a
+                target="_blank"
+                href="https://sidet.cosasdev.comovas.es/#/tareas"
+                class="shine cursor-pointer"><code>Vue, Mysql y PHP</code></a
+              > de entrevistas técnicas en 2022 que me abrieron las puertas al éxito
+              profesional. Lee sobre mi transformación en <a
+                target="_blank"
+                href="https://www.linkedin.com/pulse/scrum-est%2525C3%2525A1-a%2525C3%2525BAn-de-moda-sergio-r-gonz%2525C3%2525A1lez-fbnwe%3FtrackingId=tHUnKoIbQfGxig%252F1Oo1MXg%253D%253D/?trackingId=tHUnKoIbQfGxig%2F1Oo1MXg%3D%3D"
+                class="shine cursor-pointer"
+                ><code>Scrum Master profesional</code></a
+              >.
             </p>
             <p class="font-bold text-lg">
               Revisa mi CV y conecta conmigo en LinkedIn.
@@ -94,7 +106,7 @@ const datos = [
             href={d.url}
           >
             <span class="inline-block rounded-lg bg-gray-50 p-3">
-              <img src={d.logo} alt={d.nombre} />
+              <img src={d.logo} alt={d.nombre} loading="lazy" />
             </span>
 
             <span class="mt-2 font-bold">{d.nombre}</span>
@@ -120,7 +132,12 @@ const datos = [
         <div
           class="mb-4 md:mb-0 col-span-1 md:col-span-2 p-4 rounded-md bg-slate-50 text-black"
         >
-          <img class="w-1/2" src="/logos_preply/preply.png" alt="Preply Logo" />
+          <img
+            loading="lazy"
+            class="w-1/2"
+            src="/logos_preply/preply.png"
+            alt="Preply Logo"
+          />
           <p class="text-sm">
             <span class="text-xl">
               <code class="mr-2 bg-black text-white">LOGRO DESBLOQUEADO</code
@@ -152,9 +169,9 @@ const datos = [
           <a
             href="https://preply.com/es/?pref=MTEwMTEwMg==&id=1704804102.353758"
             target="_blank"
-            class="bg-white block w-full mt-2 border float-right ml-3 lg:w-max border-black text-black py-3 px-6 rounded-full  hover:bg-black hover:text-cyan-300 hover:underline transition duration-300 ease-in-out"
+            class="bg-white block w-full mt-2 border float-right ml-3 lg:w-max border-black text-black py-3 px-6 rounded-full hover:bg-black hover:text-cyan-300 hover:underline transition duration-300 ease-in-out"
           >
-           🥰 ¡OBTENER DESCUENTO!
+            🥰 ¡OBTENER DESCUENTO!
           </a>
         </div>
       </div>

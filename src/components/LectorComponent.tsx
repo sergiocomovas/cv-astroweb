@@ -17,7 +17,7 @@ const ProgressBar = () => {
 
       setProgress(limitedProgress);
       setShowButtons(limitedProgress >= 10);
-      setNearBottom(limitedProgress >= 94);
+      setNearBottom(limitedProgress >= 98);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -58,14 +58,14 @@ const ProgressBar = () => {
             display: flex;
             justify-content: center;
             gap: 1rem;
-            z-index: 9999;
+            z-index: 999;
             padding: 1rem;
             transition: transform 0.5s ease, bottom 0.5s ease, top 0.5s ease;
           }
 
           .bottom-buttons-container.visible-bottom {
             bottom: 0;
-            transform: translateY(0);
+            transform: translateY(-5%);
           }
 
           .bottom-buttons-container.floating-middle {

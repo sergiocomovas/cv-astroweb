@@ -1,45 +1,45 @@
-import { useEffect } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
-const CookieConsent = () => {
+const PrivacyNotice = () => {
+  const [visible, setVisible] = useState(false);
+
   useEffect(() => {
-    const consentAccepted = localStorage.getItem("cookieconsent");
+    const accepted = localStorage.getItem("sessionUnlock");
 
-    if (!consentAccepted) {
-      const cookieConsent = document.getElementById("cookieconsent");
-      if (cookieConsent) {
-        cookieConsent.style.display = "";
-      }
+    if (!accepted) {
+      setVisible(true);
+
+      // Borrar cookies manualmente si no está seteado sessionUnlock
+      const cookies = document.cookie.split("; ");
+      cookies.forEach((cookie) => {
+        const [name] = cookie.split("=");
+        document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+      });
     }
   }, []);
 
-  const aceptar = () => {
-    localStorage.setItem("cookieconsent", "true");
-    const cookieConsent = document.getElementById("cookieconsent");
-    if (cookieConsent) {
-      cookieConsent.style.display = "none";
-    }
+  const handleUnlock = () => {
+    localStorage.setItem("sessionUnlock", "true");
+    setVisible(false);
   };
 
+  if (!visible) return null;
+
   return (
-    <>
-      <div
-        id="cookieconsent"
-        style="display:none;"
-        class="fixed top-0 left-0 bg-purple-800 text-white text-center w-full p-3 z-50"
+    <div
+      id="unlockBanner"
+      class="fixed bottom-0 left-0 w-full bg-gray-900 text-white text-center py-1 z-[998] text-sm"
+    >
+      🔒 Algunas opciones están limitadas.
+      <button
+        onClick={handleUnlock}
+        id="unlockTrigger"
+        class="ml-2 p-1 font-semibold text-sm underline"
       >
-        🍪 ⒸⓄⓄⓀⒾⒺⓈ: Acéptalas para
-        <a
-          onClick={aceptar}
-          id="aceptar_cookies"
-          href="#aceptar_cookies"
-          class="text-pink-500"
-        >
-          [ DESBLOQUEAR ]
-        </a>
-        todo el contenido.
-      </div>
-    </>
+        Activar 🍪
+      </button>
+    </div>
   );
 };
 
-export default CookieConsent;
+export default PrivacyNotice;

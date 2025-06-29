@@ -169,7 +169,7 @@ const EstaWeb = () => {
               <div class="sm:flex sm:justify-between sm:gap-4">
                 <img
                   alt={item.name}
-                  src={`logos_back_${currentYear + 1}/${item.tumb}`}
+                  src={`logos_back_2024/${item.tumb}`}
                   class="h-20 w-20 transform rounded-lg object-cover shadow-sm transition-transform hover:scale-95"
                 />
                 <div class="w-full overflow-auto">

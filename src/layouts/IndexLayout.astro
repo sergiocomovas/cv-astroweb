@@ -10,6 +10,7 @@ import Cols from "../components/ColsComponent.tsx";
 import Menu from "../components/MenuHorizontalComponent.astro";
 import IntroLinks from "../components/IntroLinksComponent.astro";
 import Fronts from "../components/FrontsComponent.astro";
+import WelcomeCurtain from "../components/WelcomeCurtainComponent.astro";
 
 import { getCollection } from "astro:content"; // Usamos la API de contenido de Astro
 import GlobeBackgroundComponent from "../components/GlobeBackgroundComponent.astro";
@@ -24,15 +25,17 @@ const posts = (await getCollection("blog"))
 <html lang="es" class="w-100 overflow-x-hidden">
   <head>
     <BaseHead title="Sergio🙋 『CØMO』『VAS』" description="Página Principal" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   </head>
   <body>
+    <!-- Telón de bienvenida solo en la página principal -->
+    <WelcomeCurtain mensaje="¡Bienvenido a COMOVAS!" />
+    
     <Menu />
 
     <slot />
 
-
-
-  <GlobeBackgroundComponent />
+    <GlobeBackgroundComponent />
 
     <div class="mb-10"><EstaWeb client:only /></div>
 

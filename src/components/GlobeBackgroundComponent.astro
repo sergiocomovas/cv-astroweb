@@ -1,5 +1,5 @@
 ---
-// GlobeBackgroundCyber.astro
+// GlobeBackgroundCyber.astro - Versión simplificada sin mensaje de bienvenida
 const { mensaje = "¡Hola!" } = Astro.props;
 
 const defaultWidth = Math.min(
@@ -21,9 +21,8 @@ const defaultWidth = Math.min(
 
   <div
     id="cyberGlobe"
-    class="w-full p-1 font-mono overflow-hidden flex  bg-transparent blur-[0.7px] text-[2vw] tracking-[0.5vw] after:content-[''] after:inline-block blur-[1px] after:w-full"
+    class="w-full p-1 font-mono overflow-hidden flex bg-transparent blur-[0.7px] text-[2vw] tracking-[0.5vw] after:content-[''] after:inline-block blur-[1px] after:w-full"
   >
-  
   </div>
 </div>
 
@@ -87,45 +86,4 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
 +61*y-1]).fontcolor/*         TP         */(/\\w/.test(S)&&"#\
 03B");document.getElementById("cyberGlobe").innerHTML=p+=B+"\\n"}setTimeout(z)')
   );
-
-  // overlay2 de bienvenida con efecto pulsante y diagonal
-
-  //miro la prop
-  let msg = document.querySelector(`#cyberContainer`).dataset.mensaje;
-
-  const overlay2 = document.createElement("div");
-  overlay2.innerHTML = msg;
-  overlay2.id = "cyberOverlay2";
-  Object.assign(overlay2.style, {
-    position: "absolute",
-    top: "20%",
-    left: "20%",
-    transform: "translate(-50%, -50%) rotate(-10deg)",
-    zIndex: "998", // Queda sobre el resto
-    color: "#FFF",
-    fontFamily: "monospace, sans-serif",
-    fontSize: "4vw",
-    textAlign: "center",
-    padding: "4wv 5wv",
-    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)",
-    animation: "pulseDiagonal 10s ease-in-out infinite",
-  });
-  document.getElementById("cyberContainer").appendChild(overlay2);
-
-  // overlay2 para la imagen vectorial (SVG) con efecto neon
-  const vectorImage2 = document.createElement("img");
-  vectorImage2.src = "/comovas_laweb.svg";
-  vectorImage2.alt = "Imagen vectorial";
-  Object.assign(vectorImage2.style, {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    zIndex: "998", // Entre el fondo desenfocado y el texto
-    width: "50vw", // Responsivo
-    height: "auto",
-    maxWidth: "100%",
-    filter: "drop-shadow(0 0 15px #ff00ff50)",
-  });
-  document.getElementById("cyberContainer").appendChild(vectorImage2);
 </script>

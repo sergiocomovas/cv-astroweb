@@ -33,7 +33,7 @@ const EstaWeb = () => {
         "Preact es una biblioteca de interfaz de usuario para construir interfaces de usuario modernas y eficientes.",
       meGusta:
         "Equivalente libre a React. Destaca su tamaño pequeño, uso de signals y su rendimiento eficiente.",
-      tecnologiaUsadaPor: "Nivel máximo de Empleabilidad 2024",
+      tecnologiaUsadaPor: "Nivel máximo de Empleabilidad ${currentYear + 1}",
     },
     {
       name: "TypeScript",
@@ -44,7 +44,7 @@ const EstaWeb = () => {
         "TypeScript es un superset de JavaScript que agrega tipado estático opcional al lenguaje.",
       meGusta:
         "Por su capacidad para detectar errores en tiempo de compilación.",
-      tecnologiaUsadaPor: "Nivel máximo de Empleabilidad 2024",
+      tecnologiaUsadaPor: "Nivel máximo de Empleabilidad ${currentYear + 1}",
     },
     {
       name: "Tailwind",
@@ -54,7 +54,7 @@ const EstaWeb = () => {
       descripcion:
         "Tailwind CSS es un marco de trabajo utilitario de CSS de bajo nivel para construir interfaces de usuario.",
       meGusta: "Por facilidad de uso al centrar elementos. Además trabaja conjunto con cualquier hojas de estilo CSS",
-      tecnologiaUsadaPor: "Nivel máximo de Empleabilidad 2024",
+      tecnologiaUsadaPor: "Nivel máximo de Empleabilidad ${currentYear + 1}",
     },
     {
       name: "View Transitions",
@@ -75,7 +75,7 @@ const EstaWeb = () => {
         "Git es un sistema de control de versiones distribuido, utilizado para rastrear cambios en el código fuente durante el desarrollo de software.",
       meGusta:
         "Por su capacidad para gestionar eficientemente las versiones de código.",
-      tecnologiaUsadaPor: "Nivel máximo de Empleabilidad 2024",
+      tecnologiaUsadaPor: `Nivel máximo de Empleabilidad ${currentYear + 1}`,
     },
     {
       name: "GitHub Pages",
@@ -86,7 +86,7 @@ const EstaWeb = () => {
         "GitHub Pages es un servicio que permite alojar sitios web directamente desde tu repositorio de GitHub.",
       meGusta:
         "Por su facilidad de uso y su integración con repositorios de GitHub.",
-      tecnologiaUsadaPor: "Nivel máximo de Empleabilidad 2024",
+      tecnologiaUsadaPor: `Nivel máximo de Empleabilidad ${currentYear + 1}`,
     },
        {
       name: "Bolt",
@@ -169,7 +169,7 @@ const EstaWeb = () => {
               <div class="sm:flex sm:justify-between sm:gap-4">
                 <img
                   alt={item.name}
-                  src={`logos_back_2024/${item.tumb}`}
+                  src={`logos_back_${currentYear + 1}/${item.tumb}`}
                   class="h-20 w-20 transform rounded-lg object-cover shadow-sm transition-transform hover:scale-95"
                 />
                 <div class="w-full overflow-auto">

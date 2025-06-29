@@ -10,6 +10,7 @@ import Cols from "../components/ColsComponent.tsx";
 import Menu from "../components/MenuHorizontalComponent.astro";
 import IntroLinks from "../components/IntroLinksComponent.astro";
 import InteractiveFronts from "../components/InteractiveFrontsComponent.tsx";
+import InteractiveAI from "../components/InteractiveAIComponent.tsx";
 import WelcomeCurtain from "../components/WelcomeCurtainComponent.tsx";
 
 import { getCollection } from "astro:content"; // Usamos la API de contenido de Astro
@@ -40,6 +41,7 @@ const posts = (await getCollection("blog"))
       <Cols posts={posts} client:only />
     </main>
     <InteractiveFronts client:load />
+    <InteractiveAI client:load />
     <IntroLinks />
 
     <Footer />

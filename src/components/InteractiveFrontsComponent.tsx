@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 
 interface Framework {
   id: string;
@@ -263,29 +263,57 @@ const createArticleWithTags = async (articleData, tags) => {
     }
   ];
 
-  const handleFrameworkSelect = (framework: Framework) => {
-    setSelectedFramework(framework);
-  };
-
+  // Navegación circular
   const handleNext = () => {
-    if (currentIndex < frameworks.length - 1) {
-      const nextFramework = frameworks[currentIndex + 1];
-      setCurrentIndex(currentIndex + 1);
-      setSelectedFramework(nextFramework);
-    }
+    const nextIndex = (currentIndex + 1) % frameworks.length;
+    const nextFramework = frameworks[nextIndex];
+    setCurrentIndex(nextIndex);
+    setSelectedFramework(nextFramework);
   };
 
   const handlePrevious = () => {
-    if (currentIndex > 0) {
-      const prevFramework = frameworks[currentIndex - 1];
-      setCurrentIndex(currentIndex - 1);
-      setSelectedFramework(prevFramework);
-    }
+    const prevIndex = currentIndex === 0 ? frameworks.length - 1 : currentIndex - 1;
+    const prevFramework = frameworks[prevIndex];
+    setCurrentIndex(prevIndex);
+    setSelectedFramework(prevFramework);
+  };
+
+  const handleFrameworkSelect = (framework: Framework) => {
+    setSelectedFramework(framework);
   };
 
   const handleClose = () => {
     setSelectedFramework(null);
   };
+
+  // Navegación con teclado
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!selectedFramework) return;
+
+      switch (e.key) {
+        case 'ArrowRight':
+        case 'ArrowDown':
+          e.preventDefault();
+          handleNext();
+          break;
+        case 'ArrowLeft':
+        case 'ArrowUp':
+          e.preventDefault();
+          handlePrevious();
+          break;
+        case 'Escape':
+          e.preventDefault();
+          handleClose();
+          break;
+      }
+    };
+
+    if (selectedFramework) {
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [selectedFramework, currentIndex]);
 
   return (
     <>
@@ -431,13 +459,6 @@ const createArticleWithTags = async (articleData, tags) => {
             transform: translateY(-1px);
           }
 
-          .control-btn:disabled {
-            background: var(--color-bg-secondary);
-            color: var(--color-text-secondary);
-            cursor: not-allowed;
-            transform: none;
-          }
-
           .close-btn {
             background: #ef4444;
             color: white;
@@ -570,7 +591,6 @@ const createArticleWithTags = async (articleData, tags) => {
                 <button 
                   class="control-btn" 
                   onClick={handlePrevious}
-                  disabled={currentIndex === 0}
                 >
                   ← Anterior
                 </button>
@@ -578,7 +598,6 @@ const createArticleWithTags = async (articleData, tags) => {
                 <button 
                   class="control-btn" 
                   onClick={handleNext}
-                  disabled={currentIndex === frameworks.length - 1}
                 >
                   Siguiente →
                 </button>
@@ -608,7 +627,7 @@ const createArticleWithTags = async (articleData, tags) => {
 
               <div class="navigation-info">
                 Framework {currentIndex + 1} de {frameworks.length} • 
-                Usa las flechas del teclado o los botones para navegar
+                Usa las flechas del teclado o los botones para navegar (navegación circular)
               </div>
             </div>
           </div>

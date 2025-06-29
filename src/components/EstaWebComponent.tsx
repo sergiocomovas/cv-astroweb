@@ -203,7 +203,7 @@ const EstaWeb = () => {
 
             <p class="font-semibold">👉 {selectedItem.descripcion}</p>
             <p>💖 <span class="font-extrabold">Me gusta por:</span> {selectedItem.meGusta}</p>
-            <p>🔗 <span class="hidden md:block font-extrabold">Enlace relacionado:</span> <a href="https://www.linkedin.com/pulse/tengo-nueva-web-y-te-lo-cuento-sergio-r-gonz%2525C3%2525A1lez%3FtrackingId=%252BEO0gQ%252BTScqjhfPlOOniPw%253D%253D/?trackingId=%2BEO0gQ%2BTScqjhfPlOOniPw%3D%3D" target="_blank">Tengo nueva web ¡y te lo cuento! &nearr;</a></p>
+            <p>🔗 <span class="hidden md:block font-extrabold">Enlace relacionado:</span> <a href="https://www.linkedin.com/pulse/tengo-nueva-web-y-te-lo-cuento-sergio-r-gonz%2525C3%2525A1lez%3FtrackingId=%252BEO0gQ%252BTScqjhfPlOOniPw%253D%253D/?trackingId=%2BEO0gQ%2BTScqjhfPlOOniPw%3D%3D" target=\"_blank">Tengo nueva web ¡y te lo cuento! &nearr;</a></p>
           </div>
           <button onClick={cerrarDialogo}>Cerrar</button>
           <button

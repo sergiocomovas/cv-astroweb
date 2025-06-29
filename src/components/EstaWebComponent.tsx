@@ -211,7 +211,7 @@ const EstaWeb = () => {
 
               <p class="font-semibold my-2">👉 {selectedItem.value.descripcion}</p>
               <p class="my-2">💖 <span class="font-extrabold">Me gusta por:</span> {selectedItem.value.meGusta}</p>
-              <p class="my-2">🔗 <span class="hidden md:block font-extrabold">Enlace relacionado:</span> <a href="" target="_blank" class="text-blue-500 hover:underline">Tengo nueva web ¡y te lo cuento! &nearr;</a></p>
+              <p class="my-2">🔗 <span class="hidden md:block font-extrabold">Enlace relacionado:</span> <a href="" target="_blank" class="text-blue-500 hover:underline">Tengo nueva web ¡y te lo cuento! ↗</a></p>
             </div>
             <div class="mt-4 flex justify-between">
                 <button onClick={cerrarDialogo} class="px-4 py-2 bg-gray-200 dark:bg-gray-600 rounded hover:bg-gray-300 dark:hover:bg-gray-500">Cerrar</button>

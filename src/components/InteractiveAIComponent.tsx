@@ -670,7 +670,7 @@ console.log('Herramientas disponibles:', mcpServer.listTools());`,
             </h3>
           </div>
 
-          <div class="ai-grid">
+          <div class="ai-grid" style="margin-top:5px;">
             {aiExamples.map((example, index) => (
               <div
                 key={example.id}

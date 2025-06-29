@@ -2,13 +2,16 @@ import { useState, useEffect } from 'preact/hooks';
 
 interface AIExample {
   id: string;
-  title: string;
-  description: string;
-  icon: string;
-  category: string;
-  code: string;
-  demo?: string;
-  status: 'working' | 'experimental' | 'concept';
+  logo: string;
+  nombre: string;
+  descripcion: string;
+  ejemplo: {
+    titulo: string;
+    descripcion: string;
+    codigo: string;
+    demo?: string;
+    status: 'working' | 'experimental' | 'concept';
+  };
 }
 
 const InteractiveAIComponent = () => {
@@ -21,12 +24,14 @@ const InteractiveAIComponent = () => {
   const aiExamples: AIExample[] = [
     {
       id: 'transformers-sentiment',
-      title: 'Análisis de Sentimientos',
-      description: 'Usando Transformers.js para detectar emociones en texto',
-      icon: '😊',
-      category: 'NLP',
-      status: 'working',
-      code: `import { pipeline } from '@xenova/transformers';
+      logo: "😊",
+      nombre: "Análisis de Sentimientos",
+      descripcion: "Usando Transformers.js para detectar emociones en texto",
+      ejemplo: {
+        titulo: "Análisis de Sentimientos con Transformers.js",
+        descripcion: "Detecta emociones en texto usando modelos de IA en el navegador",
+        status: 'working',
+        codigo: `import { pipeline } from '@xenova/transformers';
 
 // Cargar el modelo de análisis de sentimientos
 const classifier = await pipeline(
@@ -60,16 +65,19 @@ texts.forEach(async (text) => {
   const sentiment = await analyzeSentiment(text);
   console.log(\`"\${text}" -> \${sentiment.emoji} \${sentiment.label} (\${(sentiment.score * 100).toFixed(1)}%)\`);
 });`,
-      demo: "transformers-demo"
+        demo: "transformers-demo"
+      }
     },
     {
       id: 'web-translator',
-      title: 'Traductor Web Nativo',
-      description: 'API de traducción experimental del navegador',
-      icon: '🌐',
-      category: 'Translation',
-      status: 'experimental',
-      code: `// API experimental de traducción del navegador
+      logo: "🌐",
+      nombre: "Traductor Web Nativo",
+      descripcion: "API de traducción experimental del navegador",
+      ejemplo: {
+        titulo: "Traductor Web Nativo",
+        descripcion: "API experimental de traducción integrada en el navegador",
+        status: 'experimental',
+        codigo: `// API experimental de traducción del navegador
 // Actualmente solo disponible en Chrome Canary con flags habilitados
 
 class WebTranslator {
@@ -110,21 +118,6 @@ class WebTranslator {
       return 'Error en traducción';
     }
   }
-
-  async detectLanguage(text) {
-    if (!('languageDetector' in window)) {
-      return 'Detección no disponible';
-    }
-
-    try {
-      // @ts-ignore - API experimental
-      const detector = await window.languageDetector.create();
-      const results = await detector.detect(text);
-      return results[0]?.detectedLanguage || 'unknown';
-    } catch (error) {
-      return 'Error en detección';
-    }
-  }
 }
 
 // Ejemplo de uso
@@ -141,16 +134,19 @@ async function translateText() {
     console.log('Traductor no disponible');
   }
 }`,
-      demo: "translator-demo"
+        demo: "translator-demo"
+      }
     },
     {
       id: 'google-ai-barista',
-      title: 'Barista AI con Gemini',
-      description: 'Chatbot especializado usando Google AI Studio',
-      icon: '☕',
-      category: 'Chatbot',
-      status: 'concept',
-      code: `import { GoogleGenerativeAI } from '@google/generative-ai';
+      logo: "☕",
+      nombre: "Barista AI con Gemini",
+      descripcion: "Chatbot especializado usando Google AI Studio",
+      ejemplo: {
+        titulo: "Barista AI con Google Gemini",
+        descripcion: "Chatbot especializado en café usando Google AI Studio",
+        status: 'concept',
+        codigo: `import { GoogleGenerativeAI } from '@google/generative-ai';
 
 class BaristaAI {
   constructor(apiKey) {
@@ -180,7 +176,6 @@ Responde SOLO sobre temas relacionados con café.
 
   async chat(userMessage, conversationHistory = []) {
     try {
-      // Construir el prompt completo
       const fullPrompt = \`
 \${this.systemPrompt}
 
@@ -200,56 +195,32 @@ Barista:
       return '☕ Lo siento, tengo problemas técnicos. ¿Podrías repetir tu pregunta?';
     }
   }
-
-  async recommendCoffee(preferences) {
-    const prompt = \`
-Basándote en estas preferencias, recomienda el café perfecto:
-- Intensidad preferida: \${preferences.intensity || 'media'}
-- Momento del día: \${preferences.timeOfDay || 'mañana'}
-- Con leche: \${preferences.withMilk ? 'sí' : 'no'}
-- Dulce: \${preferences.sweet ? 'sí' : 'no'}
-- Experiencia: \${preferences.experience || 'intermedio'}
-
-Proporciona una recomendación específica con explicación.
-\`;
-
-    return await this.chat(prompt);
-  }
 }
 
 // Ejemplo de uso
 const barista = new BaristaAI('tu-api-key-aquí');
 
-// Chat simple
 const response = await barista.chat('¿Qué café me recomiendas para empezar el día?');
-console.log(response);
-
-// Recomendación personalizada
-const recommendation = await barista.recommendCoffee({
-  intensity: 'fuerte',
-  timeOfDay: 'mañana',
-  withMilk: true,
-  sweet: false,
-  experience: 'principiante'
-});
-console.log(recommendation);`,
-      demo: "barista-demo"
+console.log(response);`,
+        demo: "barista-demo"
+      }
     },
     {
       id: 'mcp-protocol',
-      title: 'Model Context Protocol (MCP)',
-      description: 'Protocolo para conectar modelos de IA con herramientas externas',
-      icon: '🔗',
-      category: 'Protocol',
-      status: 'concept',
-      code: `// Model Context Protocol - Concepto de implementación
+      logo: "🔗",
+      nombre: "Model Context Protocol",
+      descripcion: "Protocolo para conectar modelos de IA con herramientas externas",
+      ejemplo: {
+        titulo: "Model Context Protocol (MCP)",
+        descripcion: "Protocolo para conectar modelos de IA con herramientas y datos externos",
+        status: 'concept',
+        codigo: `// Model Context Protocol - Concepto de implementación
 // MCP permite que los modelos de IA accedan a herramientas y datos externos
 
 class MCPServer {
   constructor() {
     this.tools = new Map();
     this.resources = new Map();
-    this.prompts = new Map();
   }
 
   // Registrar herramientas disponibles
@@ -262,17 +233,6 @@ class MCPServer {
         properties: {},
         required: []
       },
-      handler
-    });
-  }
-
-  // Registrar recursos (archivos, APIs, etc.)
-  registerResource(uri, name, description, handler) {
-    this.resources.set(uri, {
-      uri,
-      name,
-      description,
-      mimeType: "text/plain",
       handler
     });
   }
@@ -306,15 +266,6 @@ class MCPServer {
       };
     }
   }
-
-  // Listar herramientas disponibles
-  listTools() {
-    return Array.from(this.tools.values()).map(tool => ({
-      name: tool.name,
-      description: tool.description,
-      inputSchema: tool.inputSchema
-    }));
-  }
 }
 
 // Ejemplo de uso: Servidor MCP para desarrollo web
@@ -326,7 +277,6 @@ mcpServer.registerTool(
   'Analiza código JavaScript y detecta problemas',
   async (args) => {
     const { code } = args;
-    // Simulación de análisis
     return {
       issues: [
         { line: 5, type: 'warning', message: 'Variable no utilizada' },
@@ -340,33 +290,9 @@ mcpServer.registerTool(
   }
 );
 
-// Herramienta para consultar documentación
-mcpServer.registerTool(
-  'search_docs',
-  'Busca en la documentación de APIs web',
-  async (args) => {
-    const { query } = args;
-    // Simulación de búsqueda
-    return {
-      results: [
-        {
-          title: \`Documentación de \${query}\`,
-          url: \`https://developer.mozilla.org/docs/\${query}\`,
-          summary: \`Información sobre \${query} en MDN\`
-        }
-      ]
-    };
-  }
-);
-
-// Uso del servidor
-console.log('Herramientas disponibles:', mcpServer.listTools());
-
-const codeAnalysis = await mcpServer.callTool('analyze_code', {
-  code: 'function test() { const unused = 5; unknownFunction(); }'
-});
-console.log('Análisis de código:', codeAnalysis);`,
-      demo: "mcp-demo"
+console.log('Herramientas disponibles:', mcpServer.listTools());`,
+        demo: "mcp-demo"
+      }
     }
   ];
 
@@ -422,14 +348,12 @@ console.log('Análisis de código:', codeAnalysis);`,
 
   // Demo functions
   const runSentimentDemo = () => {
-    // Simulación del análisis de sentimientos
     const sentiments = ['😊 POSITIVE (85.2%)', '😞 NEGATIVE (72.1%)', '😊 POSITIVE (91.7%)'];
     const randomSentiment = sentiments[Math.floor(Math.random() * sentiments.length)];
     setSentimentResult(`"${testText}" -> ${randomSentiment}`);
   };
 
   const runTranslatorDemo = () => {
-    // Simulación de traducción
     const translations = {
       'Me encanta programar con JavaScript': 'I love programming with JavaScript',
       'La IA está revolucionando el desarrollo': 'AI is revolutionizing development',
@@ -441,10 +365,10 @@ console.log('Análisis de código:', codeAnalysis);`,
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'working': return '#10b981';
+      case 'working': return 'var(--color-link)';
       case 'experimental': return '#f59e0b';
-      case 'concept': return '#8b5cf6';
-      default: return '#6b7280';
+      case 'concept': return 'var(--color-secondary)';
+      default: return 'var(--color-text-secondary)';
     }
   };
 
@@ -462,57 +386,37 @@ console.log('Análisis de código:', codeAnalysis);`,
       <style>
         {`
           .ai-section {
-            margin-top: 2rem;
-          }
-
-          .ai-header {
-            text-align: center;
-            margin-bottom: 2rem;
-          }
-
-          .ai-title {
-            font-size: 2rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, var(--color-link), var(--color-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-          }
-
-          .ai-subtitle {
-            color: var(--color-text-secondary);
-            font-size: 1.1rem;
+            margin-top: -3.5rem;
           }
 
           .ai-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
-            margin-bottom: 2rem;
           }
 
-          @media (min-width: 768px) {
+          @media (min-width: 640px) {
             .ai-grid {
               grid-template-columns: repeat(4, 1fr);
             }
           }
 
           .ai-card {
-            background: var(--color-bg);
-            border: 1px solid var(--color-bg-secondary);
+            display: block;
             border-radius: 0.75rem;
-            padding: 1.5rem;
-            cursor: pointer;
+            border: 1px solid var(--color-link);
+            padding: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            background: var(--color-bg);
           }
 
           .ai-card:hover {
-            border-color: var(--color-link);
+            border-color: var(--color-secondary);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
           }
 
           .ai-card.selected {
@@ -520,45 +424,38 @@ console.log('Análisis de código:', codeAnalysis);`,
             background: var(--color-secondary-accent);
           }
 
-          .ai-card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            display: block;
+          .ai-logo {
+            display: inline-block;
+            border-radius: 0.5rem;
+            background: #f9fafb;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+            line-height: 1;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
 
-          .ai-card-title {
-            font-size: 1.1rem;
+          .ai-name {
+            margin: 0.5rem 0 0 0;
             font-weight: bold;
-            margin-bottom: 0.5rem;
             color: var(--color-text);
           }
 
-          .ai-card-description {
+          .ai-description {
+            margin: 0.25rem 0 0 0;
             font-size: 0.875rem;
             color: var(--color-text-secondary);
-            margin-bottom: 1rem;
-            line-height: 1.4;
+            display: none;
           }
 
-          .ai-card-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.75rem;
-          }
-
-          .ai-card-category {
-            background: var(--color-accent);
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            color: var(--color-text);
-          }
-
-          .ai-card-status {
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            color: white;
-            font-weight: bold;
+          @media (min-width: 640px) {
+            .ai-description {
+              display: block;
+            }
           }
 
           .ai-modal {
@@ -578,8 +475,8 @@ console.log('Análisis de código:', codeAnalysis);`,
           .ai-modal-content {
             background: var(--color-bg);
             border-radius: 0.75rem;
-            max-width: 95vw;
-            max-height: 95vh;
+            max-width: 90vw;
+            max-height: 90vh;
             overflow-y: auto;
             position: relative;
             border: 1px solid var(--color-bg-secondary);
@@ -599,9 +496,12 @@ console.log('Análisis de código:', codeAnalysis);`,
             margin: 0;
             color: var(--color-text);
             font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+          }
+
+          .ai-modal-subtitle {
+            margin: 0.5rem 0 0 0;
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
           }
 
           .ai-modal-controls {
@@ -693,6 +593,16 @@ console.log('Análisis de código:', codeAnalysis);`,
             color: var(--color-text);
           }
 
+          .ai-status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1rem;
+          }
+
           .ai-code-container {
             background: #1f2937;
             border-radius: 0.5rem;
@@ -719,8 +629,8 @@ console.log('Análisis de código:', codeAnalysis);`,
 
           @media (max-width: 768px) {
             .ai-modal-content {
-              max-width: 98vw;
-              max-height: 98vh;
+              max-width: 95vw;
+              max-height: 95vh;
             }
 
             .ai-modal-header {
@@ -754,11 +664,10 @@ console.log('Análisis de código:', codeAnalysis);`,
 
       <section class="ai-section">
         <div class="max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
-          <div class="ai-header">
-            <h2 class="ai-title">LA IA NO TE QUITARÁ EL TRABAJO</h2>
-            <p class="ai-subtitle">
-              Explora ejemplos prácticos de IA en desarrollo web
-            </p>
+          <div class="grid grid-cols-1">
+            <h3 class="hidden text-center md:block font-bold">
+              LA IA NO TE QUITARÁ EL TRABAJO
+            </h3>
           </div>
 
           <div class="ai-grid">
@@ -771,18 +680,15 @@ console.log('Análisis de código:', codeAnalysis);`,
                   handleExampleSelect(example);
                 }}
               >
-                <span class="ai-card-icon">{example.icon}</span>
-                <h3 class="ai-card-title">{example.title}</h3>
-                <p class="ai-card-description">{example.description}</p>
-                <div class="ai-card-meta">
-                  <span class="ai-card-category">{example.category}</span>
-                  <span 
-                    class="ai-card-status"
-                    style={{ backgroundColor: getStatusColor(example.status) }}
-                  >
-                    {getStatusText(example.status)}
-                  </span>
-                </div>
+                <span class="ai-logo">
+                  {example.logo}
+                </span>
+
+                <h4 class="ai-name">{example.nombre}</h4>
+
+                <p class="ai-description">
+                  {example.descripcion}
+                </p>
               </div>
             ))}
           </div>
@@ -793,10 +699,10 @@ console.log('Análisis de código:', codeAnalysis);`,
         <div class="ai-modal" onClick={(e) => e.target === e.currentTarget && handleClose()}>
           <div class="ai-modal-content">
             <div class="ai-modal-header">
-              <h2 class="ai-modal-title">
-                <span>{selectedExample.icon}</span>
-                {selectedExample.title}
-              </h2>
+              <div>
+                <h2 class="ai-modal-title">{selectedExample.ejemplo.titulo}</h2>
+                <p class="ai-modal-subtitle">{selectedExample.ejemplo.descripcion}</p>
+              </div>
               
               <div class="ai-modal-controls">
                 <button class="ai-control-btn" onClick={handlePrevious}>
@@ -814,8 +720,15 @@ console.log('Análisis de código:', codeAnalysis);`,
             </div>
 
             <div class="ai-modal-body">
+              <span 
+                class="ai-status-badge"
+                style={{ backgroundColor: getStatusColor(selectedExample.ejemplo.status) }}
+              >
+                {getStatusText(selectedExample.ejemplo.status)}
+              </span>
+
               {/* Demo interactivo */}
-              {selectedExample.demo && (
+              {selectedExample.ejemplo.demo && (
                 <div class="ai-demo-section">
                   <h3>🚀 Demo Interactivo</h3>
                   
@@ -873,12 +786,12 @@ console.log('Análisis de código:', codeAnalysis);`,
 
               <h3>📝 Código de ejemplo:</h3>
               <div class="ai-code-container">
-                <pre>{selectedExample.code}</pre>
+                <pre>{selectedExample.ejemplo.codigo}</pre>
               </div>
 
               <div class="ai-navigation-info">
                 Ejemplo {currentIndex + 1} de {aiExamples.length} • 
-                Usa las flechas del teclado o los botones para navegar
+                Usa las flechas del teclado o los botones para navegar (navegación circular)
               </div>
             </div>
           </div>

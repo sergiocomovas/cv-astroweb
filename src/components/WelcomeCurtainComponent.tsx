@@ -25,6 +25,9 @@ const WelcomeCurtainComponent = ({ mensaje = "¡Hola!" }: WelcomeCurtainProps) =
     // Verificar si debe mostrar el telón
     if (shouldShowCurtain()) {
       setIsVisible(true);
+      // Bloquear scroll inmediatamente
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     }
   }, []);
 
@@ -33,9 +36,15 @@ const WelcomeCurtainComponent = ({ mensaje = "¡Hola!" }: WelcomeCurtainProps) =
 
     let scrollTriggered = false;
 
-    const handleScroll = () => {
-      if (scrollTriggered) return;
+    const handleScroll = (e: Event) => {
+      if (scrollTriggered) {
+        // Prevenir cualquier scroll durante la animación
+        e.preventDefault();
+        return;
+      }
+      
       scrollTriggered = true;
+      e.preventDefault();
 
       const curtain = document.getElementById('welcomeCurtain');
       if (!curtain) return;
@@ -43,32 +52,67 @@ const WelcomeCurtainComponent = ({ mensaje = "¡Hola!" }: WelcomeCurtainProps) =
       // Animar el telón hacia arriba con GSAP
       gsap.to(curtain, {
         y: '-100vh',
-        duration: 1.2,
+        duration: 1.5,
         ease: 'power2.inOut',
         onComplete: () => {
-          setIsVisible(false);
-          markCurtainShown();
+          // Solo después de que la animación termine completamente
+          setTimeout(() => {
+            setIsVisible(false);
+            markCurtainShown();
+            // Restaurar el scroll
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
+            // Asegurar que estamos en la parte superior
+            window.scrollTo(0, 0);
+          }, 100);
         }
       });
 
       // Animar el contenido del telón
       gsap.to('.curtain-content', {
         opacity: 0,
-        duration: 0.8,
+        duration: 1,
         ease: 'power2.out'
       });
     };
 
-    // Agregar listeners para detectar scroll
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('wheel', handleScroll, { passive: true });
-    window.addEventListener('touchmove', handleScroll, { passive: true });
+    const handleWheel = (e: WheelEvent) => {
+      handleScroll(e);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      handleScroll(e);
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Detectar teclas de navegación (flechas, page up/down, space, etc.)
+      if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Space', 'End', 'Home'].includes(e.code)) {
+        handleScroll(e);
+      }
+    };
+
+    // Agregar listeners para detectar cualquier intento de scroll
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('keydown', handleKeyDown, { passive: false });
+    
+    // También detectar scroll directo (por si acaso)
+    window.addEventListener('scroll', (e) => {
+      if (!scrollTriggered) {
+        handleScroll(e);
+      }
+    }, { passive: false });
 
     // Cleanup
     return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('wheel', handleScroll);
-      window.removeEventListener('touchmove', handleScroll);
+      
+      // Asegurar que el scroll se restaure si el componente se desmonta
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     };
   }, [isVisible]);
 
@@ -175,6 +219,20 @@ it(B = "\\\\\\\\")./*           G####B" #       */join(B+B).split\\
             width: 100vw;
           }
 
+          .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10002;
+            color: #FFF;
+            font-family: var(--font-family);
+            font-size: 1rem;
+            text-align: center;
+            opacity: 0.8;
+            animation: bounce 2s infinite;
+          }
+
           @keyframes pulseDiagonal {
             0% {
               transform: translate(-50%, -50%) rotate(-10deg) scale(1);
@@ -196,6 +254,18 @@ it(B = "\\\\\\\\")./*           G####B" #       */join(B+B).split\\
             }
           }
 
+          @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+              transform: translateX(-50%) translateY(0);
+            }
+            40% {
+              transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+              transform: translateX(-50%) translateY(-5px);
+            }
+          }
+
           /* Responsive */
           @media (max-width: 768px) {
             .welcome-overlay {
@@ -208,6 +278,11 @@ it(B = "\\\\\\\\")./*           G####B" #       */join(B+B).split\\
             .welcome-vector {
               width: 70vw;
             }
+
+            .scroll-hint {
+              font-size: 0.9rem;
+              bottom: 20px;
+            }
           }
 
           @media (max-width: 480px) {
@@ -218,6 +293,11 @@ it(B = "\\\\\\\\")./*           G####B" #       */join(B+B).split\\
             
             .welcome-vector {
               width: 80vw;
+            }
+
+            .scroll-hint {
+              font-size: 0.8rem;
+              bottom: 15px;
             }
           }
         `}
@@ -241,6 +321,10 @@ it(B = "\\\\\\\\")./*           G####B" #       */join(B+B).split\\
             alt="Imagen vectorial" 
             class="welcome-vector"
           />
+
+          <div class="scroll-hint">
+            ↓ Desplázate para continuar ↓
+          </div>
         </div>
       </div>
     </>

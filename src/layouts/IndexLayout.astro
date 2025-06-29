@@ -26,25 +26,550 @@ const posts = (await getCollection("blog"))
 <html lang="es" class="w-100 overflow-x-hidden">
   <head>
     <BaseHead title="Sergio🙋 『CØMO』『VAS』" description="Página Principal" />
+    
+    <!-- Fuentes modernas 2025 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+      /* Variables CSS actualizadas para el tema cyberpunk-retro */
+      :root {
+        --font-primary: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-secondary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+        
+        /* Colores cyberpunk minimalistas */
+        --cyber-primary: #00ff88;
+        --cyber-secondary: #ff0080;
+        --cyber-accent: #00d4ff;
+        --cyber-dark: #0a0a0f;
+        --cyber-darker: #050508;
+        --cyber-light: #1a1a2e;
+        --cyber-text: #e0e0e0;
+        --cyber-text-dim: #a0a0a0;
+        --cyber-border: #333344;
+        
+        /* Gradientes sutiles */
+        --gradient-primary: linear-gradient(135deg, var(--cyber-primary) 0%, var(--cyber-accent) 100%);
+        --gradient-secondary: linear-gradient(135deg, var(--cyber-secondary) 0%, var(--cyber-primary) 100%);
+        --gradient-dark: linear-gradient(180deg, var(--cyber-darker) 0%, var(--cyber-dark) 100%);
+      }
+
+      /* Reset y base */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+      }
+
+      body {
+        font-family: var(--font-secondary);
+        background: var(--cyber-darker);
+        color: var(--cyber-text);
+        line-height: 1.6;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* Fondo animado sutil */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+          radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.03) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(255, 0, 128, 0.03) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(0, 212, 255, 0.02) 0%, transparent 50%);
+        z-index: -2;
+        animation: backgroundShift 20s ease-in-out infinite;
+      }
+
+      @keyframes backgroundShift {
+        0%, 100% { transform: translateX(0) translateY(0); }
+        33% { transform: translateX(-10px) translateY(10px); }
+        66% { transform: translateX(10px) translateY(-10px); }
+      }
+
+      /* Grid cyberpunk sutil */
+      body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+          linear-gradient(rgba(0, 255, 136, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 255, 136, 0.02) 1px, transparent 1px);
+        background-size: 50px 50px;
+        z-index: -1;
+        opacity: 0.3;
+      }
+
+      /* Contenedor principal */
+      .cyber-container {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Secciones con espaciado cyberpunk */
+      .cyber-section {
+        position: relative;
+        margin: 4rem 0;
+        padding: 2rem 0;
+      }
+
+      .cyber-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 100%;
+        background: var(--gradient-primary);
+        opacity: 0.1;
+        z-index: -1;
+      }
+
+      /* Efectos de entrada GSAP */
+      .gsap-fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      .gsap-slide-left {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+
+      .gsap-slide-right {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+
+      .gsap-scale-in {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      /* Líneas decorativas cyberpunk */
+      .cyber-divider {
+        position: relative;
+        height: 2px;
+        background: var(--gradient-primary);
+        margin: 3rem auto;
+        max-width: 200px;
+        opacity: 0.6;
+      }
+
+      .cyber-divider::before,
+      .cyber-divider::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 8px;
+        height: 8px;
+        background: var(--cyber-primary);
+        border-radius: 50%;
+        transform: translateY(-50%);
+        box-shadow: 0 0 10px var(--cyber-primary);
+      }
+
+      .cyber-divider::before {
+        left: -12px;
+      }
+
+      .cyber-divider::after {
+        right: -12px;
+      }
+
+      /* Títulos con efecto cyberpunk */
+      .cyber-title {
+        font-family: var(--font-primary);
+        font-weight: 700;
+        text-align: center;
+        margin: 2rem 0;
+        position: relative;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .cyber-title::before {
+        content: '◆';
+        position: absolute;
+        left: -30px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--cyber-primary);
+        font-size: 0.8em;
+        opacity: 0.7;
+      }
+
+      .cyber-title::after {
+        content: '◆';
+        position: absolute;
+        right: -30px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--cyber-secondary);
+        font-size: 0.8em;
+        opacity: 0.7;
+      }
+
+      /* Efectos hover sutiles */
+      .cyber-hover {
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .cyber-hover::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--gradient-primary);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+        border-radius: inherit;
+      }
+
+      .cyber-hover:hover::before {
+        opacity: 0.05;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .cyber-section {
+          margin: 2rem 0;
+          padding: 1rem 0;
+        }
+
+        .cyber-title::before,
+        .cyber-title::after {
+          display: none;
+        }
+
+        body::after {
+          background-size: 30px 30px;
+        }
+      }
+
+      /* Animaciones de carga */
+      @keyframes glitch {
+        0% { transform: translateX(0); }
+        20% { transform: translateX(-2px); }
+        40% { transform: translateX(2px); }
+        60% { transform: translateX(-1px); }
+        80% { transform: translateX(1px); }
+        100% { transform: translateX(0); }
+      }
+
+      .cyber-glitch {
+        animation: glitch 0.3s ease-in-out;
+      }
+
+      /* Barras de progreso cyberpunk */
+      .cyber-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--cyber-dark);
+        z-index: 1000;
+      }
+
+      .cyber-progress-bar {
+        height: 100%;
+        background: var(--gradient-primary);
+        width: 0%;
+        transition: width 0.3s ease;
+        box-shadow: 0 0 10px var(--cyber-primary);
+      }
+
+      /* Partículas flotantes */
+      .cyber-particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .cyber-particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: var(--cyber-primary);
+        border-radius: 50%;
+        opacity: 0.3;
+        animation: float 10s linear infinite;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) translateX(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.3;
+        }
+        90% {
+          opacity: 0.3;
+        }
+        100% {
+          transform: translateY(-10vh) translateX(100px);
+          opacity: 0;
+        }
+      }
+    </style>
   </head>
-  <body>
+  
+  <body class="cyber-container">
+    <!-- Barra de progreso cyberpunk -->
+    <div class="cyber-progress">
+      <div class="cyber-progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Partículas flotantes -->
+    <div class="cyber-particles" id="particles"></div>
+
     <WelcomeCurtain mensaje="¡Bienvenido!" client:load />
-    <Menu />
+    
+    <div class="gsap-fade-in">
+      <Menu />
+    </div>
 
     <slot />
 
-    <GlobeBackgroundComponent />
+    <div class="cyber-section gsap-scale-in">
+      <GlobeBackgroundComponent />
+    </div>
 
-    <div class="mb-10"><EstaWeb client:only /></div>
+    <div class="cyber-divider"></div>
 
-    <main class="-mt-20 md:-mt-40">
+    <section class="cyber-section gsap-slide-left">
+      <h2 class="cyber-title">Stack Tecnológico</h2>
+      <div class="cyber-hover">
+        <EstaWeb client:only />
+      </div>
+    </section>
+
+    <div class="cyber-divider"></div>
+
+    <main class="cyber-section gsap-fade-in" style="margin-top: -5rem;">
+      <h2 class="cyber-title">Artículos Recientes</h2>
       <Cols posts={posts} client:only />
     </main>
-    <InteractiveFronts client:load />
-    <InteractiveAI client:load />
-    <IntroLinks />
+
+    <div class="cyber-divider"></div>
+
+    <section class="cyber-section gsap-slide-right">
+      <h2 class="cyber-title">APIs & Frontends</h2>
+      <div class="cyber-hover">
+        <InteractiveFronts client:load />
+      </div>
+    </section>
+
+    <div class="cyber-divider"></div>
+
+    <section class="cyber-section gsap-slide-left">
+      <h2 class="cyber-title">Inteligencia Artificial</h2>
+      <div class="cyber-hover">
+        <InteractiveAI client:load />
+      </div>
+    </section>
+
+    <div class="cyber-divider"></div>
+
+    <section class="cyber-section gsap-fade-in">
+      <h2 class="cyber-title">Conexiones</h2>
+      <IntroLinks />
+    </section>
 
     <Footer />
+
+    <script is:inline>
+      // Inicialización GSAP cuando el DOM esté listo
+      document.addEventListener('DOMContentLoaded', function() {
+        // Registrar ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Crear partículas flotantes
+        function createParticles() {
+          const container = document.getElementById('particles');
+          if (!container) return;
+
+          for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'cyber-particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            container.appendChild(particle);
+          }
+        }
+
+        // Barra de progreso de scroll
+        function updateProgressBar() {
+          const progressBar = document.getElementById('progressBar');
+          if (!progressBar) return;
+
+          const scrollTop = window.pageYOffset;
+          const docHeight = document.body.scrollHeight - window.innerHeight;
+          const scrollPercent = (scrollTop / docHeight) * 100;
+          progressBar.style.width = scrollPercent + '%';
+        }
+
+        // Animaciones GSAP
+        function initGSAPAnimations() {
+          // Fade in elements
+          gsap.fromTo('.gsap-fade-in', 
+            { opacity: 0, y: 30 },
+            { 
+              opacity: 1, 
+              y: 0, 
+              duration: 1,
+              stagger: 0.2,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: '.gsap-fade-in',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+              }
+            }
+          );
+
+          // Slide from left
+          gsap.fromTo('.gsap-slide-left',
+            { opacity: 0, x: -50 },
+            {
+              opacity: 1,
+              x: 0,
+              duration: 0.8,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: '.gsap-slide-left',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+              }
+            }
+          );
+
+          // Slide from right
+          gsap.fromTo('.gsap-slide-right',
+            { opacity: 0, x: 50 },
+            {
+              opacity: 1,
+              x: 0,
+              duration: 0.8,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: '.gsap-slide-right',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+              }
+            }
+          );
+
+          // Scale in elements
+          gsap.fromTo('.gsap-scale-in',
+            { opacity: 0, scale: 0.8 },
+            {
+              opacity: 1,
+              scale: 1,
+              duration: 1,
+              ease: "back.out(1.7)",
+              scrollTrigger: {
+                trigger: '.gsap-scale-in',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+              }
+            }
+          );
+
+          // Animación de los dividers
+          gsap.fromTo('.cyber-divider',
+            { scaleX: 0 },
+            {
+              scaleX: 1,
+              duration: 1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: '.cyber-divider',
+                start: 'top 90%',
+                toggleActions: 'play none none reverse'
+              }
+            }
+          );
+
+          // Efecto parallax sutil en el fondo
+          gsap.to('body::before', {
+            yPercent: -50,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "body",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true
+            }
+          });
+        }
+
+        // Efecto glitch aleatorio en títulos
+        function randomGlitch() {
+          const titles = document.querySelectorAll('.cyber-title');
+          if (titles.length === 0) return;
+
+          const randomTitle = titles[Math.floor(Math.random() * titles.length)];
+          randomTitle.classList.add('cyber-glitch');
+          
+          setTimeout(() => {
+            randomTitle.classList.remove('cyber-glitch');
+          }, 300);
+        }
+
+        // Inicializar todo
+        createParticles();
+        initGSAPAnimations();
+        
+        // Event listeners
+        window.addEventListener('scroll', updateProgressBar);
+        
+        // Glitch aleatorio cada 10-30 segundos
+        setInterval(randomGlitch, Math.random() * 20000 + 10000);
+
+        // Efecto de entrada inicial
+        gsap.fromTo('body', 
+          { opacity: 0 },
+          { opacity: 1, duration: 1, ease: "power2.out" }
+        );
+      });
+    </script>
+
     <script is:inline src="../scripts/hscroll.js"></script>
   </body>
 </html>

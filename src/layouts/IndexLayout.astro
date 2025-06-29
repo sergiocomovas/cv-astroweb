@@ -9,7 +9,7 @@ import EstaWeb from "../components/EstaWebComponent.tsx";
 import Cols from "../components/ColsComponent.tsx";
 import Menu from "../components/MenuHorizontalComponent.astro";
 import IntroLinks from "../components/IntroLinksComponent.astro";
-import Fronts from "../components/FrontsComponent.astro";
+import InteractiveFronts from "../components/InteractiveFrontsComponent.tsx";
 import WelcomeCurtain from "../components/WelcomeCurtainComponent.tsx";
 
 import { getCollection } from "astro:content"; // Usamos la API de contenido de Astro
@@ -39,7 +39,7 @@ const posts = (await getCollection("blog"))
     <main class="-mt-20 md:-mt-40">
       <Cols posts={posts} client:only />
     </main>
-    <Fronts />
+    <InteractiveFronts client:load />
     <IntroLinks />
 
     <Footer />

@@ -69,7 +69,7 @@ const ProgressBar = () => {
           }
 
           .bottom-buttons-container.floating-middle {
-            top: 75%;
+            top: 45%;
             transform: translateY(-70%);
           }
 

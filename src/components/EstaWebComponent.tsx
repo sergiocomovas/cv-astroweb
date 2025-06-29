@@ -11,6 +11,8 @@ const EstaWeb = () => {
     tecnologiaUsadaPor: string;
   };
 
+  const currentYear = new Date().getFullYear();
+
   const coso: Tecnologia[] = [
     {
       name: "Astro",

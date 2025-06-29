@@ -86,6 +86,17 @@ const EstaWeb = () => {
         "Por su facilidad de uso y su integración con repositorios de GitHub.",
       tecnologiaUsadaPor: "Nivel máximo de Empleabilidad 2024",
     },
+    {
+      name: "Bolt",
+      tipo: "IDE en la Nube",
+      color: "from-purple-500",
+      tumb: "bolt-placeholder.svg", // Placeholder para que añadas el vector después
+      descripcion:
+        "Bolt es un IDE en la nube potenciado por StackBlitz que permite desarrollar aplicaciones web completas directamente en el navegador.",
+      meGusta:
+        "Por su capacidad de crear aplicaciones completas sin configuración local, con IA integrada y despliegue instantáneo.",
+      tecnologiaUsadaPor: "Innovación y Productividad 2025",
+    },
   ];
 
   const [dialogOpen, setDialogOpen] = useState(false);

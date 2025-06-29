@@ -10,7 +10,7 @@ import Cols from "../components/ColsComponent.tsx";
 import Menu from "../components/MenuHorizontalComponent.astro";
 import IntroLinks from "../components/IntroLinksComponent.astro";
 import Fronts from "../components/FrontsComponent.astro";
-import GSAPLoader from "../components/GSAPLoader.astro";
+import WelcomeCurtain from "../components/WelcomeCurtainComponent.tsx";
 
 import { getCollection } from "astro:content"; // Usamos la API de contenido de Astro
 import GlobeBackgroundComponent from "../components/GlobeBackgroundComponent.astro";
@@ -27,14 +27,12 @@ const posts = (await getCollection("blog"))
     <BaseHead title="Sergio🙋 『CØMO』『VAS』" description="Página Principal" />
   </head>
   <body>
-    <GSAPLoader />
+    <WelcomeCurtain mensaje="¡Bienvenido!" client:load />
     <Menu />
 
     <slot />
 
-
-
-  <GlobeBackgroundComponent />
+    <GlobeBackgroundComponent />
 
     <div class="mb-10"><EstaWeb client:only /></div>
 

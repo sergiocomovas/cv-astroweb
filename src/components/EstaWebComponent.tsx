@@ -33,7 +33,7 @@ const EstaWeb = () => {
         "Preact es una biblioteca de interfaz de usuario para construir interfaces de usuario modernas y eficientes.",
       meGusta:
         "Equivalente libre a React. Destaca su tamaño pequeño, uso de signals y su rendimiento eficiente.",
-      tecnologiaUsadaPor: "Nivel máximo de Empleabilidad ${currentYear + 1}",
+      tecnologiaUsadaPor: `Nivel máximo de Empleabilidad ${currentYear + 1}`,
     },
     {
       name: "TypeScript",
@@ -44,7 +44,7 @@ const EstaWeb = () => {
         "TypeScript es un superset de JavaScript que agrega tipado estático opcional al lenguaje.",
       meGusta:
         "Por su capacidad para detectar errores en tiempo de compilación.",
-      tecnologiaUsadaPor: "Nivel máximo de Empleabilidad ${currentYear + 1}",
+      tecnologiaUsadaPor: `Nivel máximo de Empleabilidad ${currentYear + 1}`,
     },
     {
       name: "Tailwind",
@@ -54,7 +54,7 @@ const EstaWeb = () => {
       descripcion:
         "Tailwind CSS es un marco de trabajo utilitario de CSS de bajo nivel para construir interfaces de usuario.",
       meGusta: "Por facilidad de uso al centrar elementos. Además trabaja conjunto con cualquier hojas de estilo CSS",
-      tecnologiaUsadaPor: "Nivel máximo de Empleabilidad ${currentYear + 1}",
+      tecnologiaUsadaPor: `Nivel máximo de Empleabilidad ${currentYear + 1}`,
     },
     {
       name: "View Transitions",

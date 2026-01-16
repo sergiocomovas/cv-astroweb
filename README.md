@@ -1,68 +1,78 @@
-# Astro Starter Kit: Blog
+# COMO VAS.ES - La Web de Sergio
 
-```sh
-npm create astro@latest -- --template blog
-```
+Este repositorio contiene el código fuente del sitio web personal y blog de **Sergio R. González** ([@sergiocomovas](https://twitter.com/sergiocomovas)).
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/blog)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/blog)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/blog/devcontainer.json)
+El proyecto está construido con **Astro**, priorizando el rendimiento, la simplicidad y una experiencia de usuario fluida.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🚀 Tecnologías
 
-![blog](https://github.com/withastro/astro/assets/2244813/ff10799f-a816-4703-b967-c78997e8323d)
+Este proyecto utiliza un stack moderno y eficiente:
 
-Features:
+- **[Astro](https://astro.build/)** (v5.16.10): Framework principal para la generación de sitios estáticos (SSG).
+- **[Preact](https://preactjs.com/)** (v10.28.2): Biblioteca ligera compatible con React para componentes interactivos.
+- **[Tailwind CSS](https://tailwindcss.com/)** (v3.4.19): Framework de utilidades CSS para el diseño.
+- **[MVP.css / Estilos Personalizados]**: Estilos minimalistas adicionales para una estética limpia.
+- **[Markdown / MDX]**: Para la gestión de contenido del blog y páginas estáticas.
+- **[Sharp](https://sharp.pixelplumbing.com/)** (v0.34.5): Procesamiento y optimización de imágenes.
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## 📂 Estructura del Proyecto
 
 ```text
-├── public/
+├── public/           # Archivos estáticos (imágenes, iconos, etc.)
 ├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+│   ├── components/   # Componentes reutilizables (.astro y .tsx)
+│   ├── content/      # Colecciones de contenido (blog, blog_ia)
+│   ├── layouts/      # Plantillas de diseño (Layouts)
+│   ├── pages/        # Rutas y páginas del sitio
+│   ├── scripts/      # Scripts JS del lado del cliente
+│   └── styles/       # Archivos CSS globales
+├── astro.config.mjs  # Configuración de Astro
+└── package.json      # Dependencias y scripts
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🧞 Comandos
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+**⚠️ Importante:** Este proyecto utiliza **pnpm** como gestor de paquetes. No usar npm ni yarn.
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+Todos los comandos se ejecutan desde la raíz del proyecto:
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
+| Comando                   | Acción                                           |
 | :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+| `pnpm install`           | Instala las dependencias                         |
+| `pnpm run dev`           | Inicia el servidor de desarrollo en `localhost:4321` |
+| `pnpm run build`         | Ejecuta `astro check` y compila el sitio para producción en `./dist/` |
+| `pnpm run preview`       | Previsualiza la versión compilada localmente     |
 
-## 👀 Want to learn more?
+## 📝 Contenido
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### Blogs
+- **Blog** (`/blog`): Artículos sobre tecnología, comunicación, salud y desarrollo personal.
+- **Blog IA** (`/blog_ia`): Publicaciones sobre inteligencia artificial y automatización.
 
-## Credit
+### Páginas
+- **Inicio**: Portada con dos carruseles (blog tradicional y blog IA).
+- **Acerca de** (`/acerca`): Información personal, stack tecnológico y proyectos pasados (LEGADO).
+- **Aviso Legal** (`/legal`): Condiciones de uso, protección de datos y política de cookies.
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+### Generación Automática
+- **RSS Feed**: Generación automática para sindicación.
+- **Sitemap**: Generación automática para SEO.
+
+## ☁️ Despliegue
+
+El sitio está configurado para desplegarse en **GitHub Pages** desde la rama `main`.
+
+## 🔧 Configuración
+
+- **TypeScript**: Modo estricto habilitado con `strictNullChecks`.
+- **Tailwind CSS**: Configurado a través de la integración oficial de Astro.
+- **Content Collections**: Blog y Blog IA configurados en `src/content/config.ts`.
+- **Build**: Ejecuta `astro check` antes de compilar para verificar errores de tipos.
+
+## 📄 Licencia
+
+Ver archivo [LICENSE](LICENSE) para más información.
+
+---
+Hecho con ❤️ por Sergio R. González.
+

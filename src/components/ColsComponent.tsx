@@ -1,7 +1,7 @@
 import { useState, useEffect } from "preact/hooks";
 
-// El componente ahora recibe los posts como props
-const ColScroll = ({ posts }) => {
+// El componente ahora recibe los posts como props y basePath opcional
+const ColScroll = ({ posts, basePath = '/blog' }) => {
   const [selectedColumn, setSelectedColumn] = useState(1);
 
   const changeColumn = (direction) => {
@@ -116,7 +116,7 @@ const ColScroll = ({ posts }) => {
                 </div>
 
                 <figure className="figure-button">
-                  <a href={`/blog/${x.slug}/`} style="padding-left:10px;">
+                  <a href={`${basePath}/${x.slug}/`} style="padding-left:10px;">
                     <button
                       className={`transition-transform duration-300 transform hover:scale-105 ${
                         selectedColumn === index + 1

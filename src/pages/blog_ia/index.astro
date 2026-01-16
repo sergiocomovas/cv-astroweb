@@ -1,0 +1,82 @@
+---
+import BaseHead from '../../components/BaseHeadComponent.astro';
+import Footer from '../../components/FooterComponent.astro';
+import { SITE_TITLE } from '../../consts';
+import { getCollection } from 'astro:content';
+import ColsComponent from '../../components/ColsComponent';
+
+const posts = (await getCollection('blog_ia')).slice(0, 15);
+const title = 'Inteligencia Artificial | ' + SITE_TITLE;
+const description = 'Explorando el uso de Inteligencia Artificial en desarrollo y flujo de trabajo';
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead title={title} description={description} />
+		<style>
+			:root {
+				--gradient-ia: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			}
+
+			.hero {
+				text-align: center;
+				margin-bottom: 2rem;
+				padding: 2rem 1rem;
+				background: var(--gradient-ia);
+				border-radius: 20px;
+				color: white;
+				box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+			}
+
+			.hero h1 {
+				font-size: 2.5rem;
+				margin: 0 0 0.5rem 0;
+				font-weight: 800;
+				text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+			}
+
+			.hero p {
+				font-size: 1.1rem;
+				margin: 0;
+				opacity: 0.95;
+			}
+
+			main {
+				padding: 0 1rem 2rem 1rem;
+			}
+
+			.empty-state {
+				text-align: center;
+				color: #718096;
+				font-size: 1.2rem;
+				padding: 3rem 1rem;
+			}
+
+			@media (max-width: 768px) {
+				.hero h1 {
+					font-size: 1.8rem;
+				}
+
+				.hero p {
+					font-size: 0.9rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<section class="hero">
+				<h1>🤖 Inteligencia Artificial</h1>
+				<p>Explorando cómo la IA transforma el desarrollo web y mi flujo de trabajo diario</p>
+			</section>
+
+			{posts.length === 0 ? (
+				<p class="empty-state">Próximamente... 🚀</p>
+			) : (
+				<ColsComponent posts={posts} basePath="/blog_ia" client:only />
+			)}
+		</main>
+		<Footer />
+	</body>
+</html>

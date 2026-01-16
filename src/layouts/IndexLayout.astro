@@ -16,6 +16,9 @@ import GlobeBackgroundComponent from "../components/GlobeBackgroundComponent.ast
 const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 15);
+const iaPosts = (await getCollection("blog_ia"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 15);
 
 //const { titulo } = Astro.props;
 ---
@@ -37,7 +40,17 @@ const posts = (await getCollection("blog"))
     <div class="mb-10"><EstaWeb client:only /></div>
 
     <main class="-mt-20 md:-mt-40">
-      <Cols posts={posts} client:only />
+      <Cols posts={posts} basePath="/blog" client:only />
+    </main>
+
+    <div class="mb-4 text-center">
+      <h2 class="text-2xl font-bold text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text mb-4">
+        🤖 Publicaciones de Inteligencia Artificial
+      </h2>
+    </div>
+
+    <main class="-mt-20 md:-mt-40 mb-10">
+      <Cols posts={iaPosts} basePath="/blog_ia" client:only />
     </main>
     <Fronts />
     <IntroLinks />

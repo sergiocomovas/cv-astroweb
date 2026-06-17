@@ -22,26 +22,24 @@ heroImage: '/post_img/20220803161740.png'
 La página de pruebas es un caja de arena donde he realizado distintas comprobaciones antes de adentrarme en un proyecto más ambicioso. Actualmente está en linea y se puede consultar desde la web de <a href="https://cosasdev.comovas.es">COSAS DEV</a>. Igualmente dejo los enlaces en la parte final de este artículo.
 
 ## GRAN PROYECTO 
-Se trata de un proyecto FULL STACK donde estoy construyendo una App de Svelte con Vite, Node.js, Express, Postgresql, Auth0 y Bulma. A 3 de Agosto 2022 los avances visibles no son muy impresionantes pero espero tener la aplicación acabada próximamente. 
+Se trataba de un proyecto FULL STACK: App de Svelte con Vite, Node.js, Express, Postgresql, Auth0 y Bulma. El servidor Express dejó de funcionar y el proyecto quedó en pausa. Los repositorios aún están disponibles para consulta.
 
 ![](/post_img/20220803235621.png)  
 
 ## EN RESUMEN
 
-| PRUEBAS REACT |
+| PRUEBAS SVELTE |
 |-- |
 | <a href="https://github.com/sergiocomovas/00_cosasDev_svelte-app-00">GITHUB</a> |
-| <a href="http://micro.cosasdev.comovas.es/svelte/">VER EN LA WEB</a> |
+| <a href="https://cosasdev.comovas.es/svelte/">VER EN LA WEB</a> |
 
 <br><br>
 
-
-
-|GRAN PROYECTO| 
+| GRAN PROYECTO (en pausa) | 
 |--|
 | <a href="https://github.com/sergiocomovas/00_proyecto_svelte_frontend1">GITHUB FRONTEND</a>|
 | <a href="https://github.com/sergiocomovas/00_proyecto_svelte_backend2">GITHUB BACKEND</a>|
-| <a href="http://granproyecto.cosasdev.comovas.es/">VER EN LA WEB</a> |
+| ~~<a href="https://express.cosasdev.comovas.es/">VER EN LA WEB (offline)</a>~~ |
 
 # Y AÚN HAY MÁS...
 

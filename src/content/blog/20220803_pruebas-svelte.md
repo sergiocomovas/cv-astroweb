@@ -30,7 +30,7 @@ Se trataba de un proyecto FULL STACK: App de Svelte con Vite, Node.js, Express, 
 
 | PRUEBAS SVELTE |
 |-- |
-| <a href="https://github.com/sergiocomovas/00_cosasDev_svelte-app-00">GITHUB</a> |
+| <a href="https://github.com/sergiocomovas/cosasdev-svelte">GITHUB</a> |
 | <a href="https://cosasdev.comovas.es/svelte/">VER EN LA WEB</a> |
 
 <br><br>

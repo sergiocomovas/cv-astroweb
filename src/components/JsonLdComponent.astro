@@ -1,0 +1,109 @@
+---
+/**
+ * JSON-LD Structured Data for web.comovas.es
+ * Helps search engines and LLMs understand who Sergio is and what this site is about.
+ * Based on: https://hawksley.dev/blog/json-ld-explained-for-personal-websites/
+ */
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+
+const baseUrl = 'https://web.comovas.es';
+const pathname = Astro.url.pathname;
+const isHomePage = pathname === '/';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    // ── WebSite (full on home, slim on other pages) ──
+    isHomePage ? {
+      "@type": "WebSite",
+      "@id": `${baseUrl}/#website`,
+      "url": `${baseUrl}/`,
+      "name": "COMO VAS.ES",
+      "alternateName": ["comovas.es", "Sergio"],
+      "description": "La web personal de Sergio, Web Developer de Palma de Mallorca",
+      "inLanguage": "es-ES",
+      "publisher": { "@id": `${baseUrl}/#person` }
+    } : {
+      "@type": "WebSite",
+      "@id": `${baseUrl}/#website`,
+      "url": `${baseUrl}/`,
+      "name": "COMO VAS.ES"
+    },
+
+    // ── WebPage / ProfilePage (page-specific) ──
+    {
+      "@type": isHomePage ? "ProfilePage" : "WebPage",
+      "@id": `${baseUrl}${pathname === '/' ? '/' : pathname}#webpage`,
+      "url": `${baseUrl}${pathname}`,
+      "isPartOf": { "@id": `${baseUrl}/#website` },
+      ...(title && { "name": title }),
+      ...(description && { "description": description }),
+      "inLanguage": "es-ES",
+      ...(isHomePage && { "mainEntity": { "@id": `${baseUrl}/#person` } })
+    },
+
+    // ── Person (on ALL pages — critical for authorship) ──
+    {
+      "@type": "Person",
+      "@id": `${baseUrl}/#person`,
+      "url": `${baseUrl}/`,
+      "name": "Sergio R. González",
+      "givenName": "Sergio",
+      "familyName": "González",
+      "alternateName": "sergiocomovas",
+      "description": "Web Developer de Palma de Mallorca especializado en JavaScript, micro-frontends y Astro. Interesado en tecnología, evolución digital y privacidad.",
+      "disambiguatingDescription": "Web Developer y Scrum Master certificado (PSM I) de Palma de Mallorca, España.",
+      "jobTitle": "Web Developer",
+      "email": "sergio@comovas.es",
+      "knowsLanguage": ["es", "en"],
+      "knowsAbout": [
+        "Desarrollo Web",
+        "Full Stack Development",
+        "JavaScript",
+        "TypeScript",
+        "React",
+        "Vue",
+        "Svelte",
+        "Astro",
+        "Node.js",
+        "PHP",
+        "CodeIgniter",
+        "MySQL",
+        "Micro-frontends",
+        "Scrum"
+      ],
+      "nationality": {
+        "@type": "Country",
+        "name": "España"
+      },
+      "homeLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "ES",
+          "addressLocality": "Palma de Mallorca",
+          "addressRegion": "Islas Baleares"
+        }
+      },
+      "image": {
+        "@type": "ImageObject",
+        "@id": `${baseUrl}/#person-image`,
+        "url": `${baseUrl}/comovas_laweb.png`
+      },
+      "sameAs": [
+        "https://github.com/sergiocomovas",
+        "https://www.linkedin.com/in/sergiocomovas",
+        "https://ko-fi.com/R6R52N4QJ"
+      ]
+    }
+  ]
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

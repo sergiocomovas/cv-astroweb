@@ -1,8 +1,9 @@
 ---
+import '../styles/tailwind.css';
 import '../styles/mpv.css';
 import '../styles/perso.css';
 
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import JsonLd from "./JsonLdComponent.astro";
 
 interface Props {
@@ -45,7 +46,7 @@ const { title, description, image = '/comovas_laweb.png' } = Astro.props;
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
 <!-- View Transitions -->
-<ViewTransitions />
+<ClientRouter />
 
 <!-- JSON-LD Structured Data -->
 <JsonLd title={title} description={description} />

@@ -116,7 +116,7 @@ const ColScroll = ({ posts, basePath = '/blog' }) => {
                 </div>
 
                 <figure className="figure-button">
-                  <a href={`${basePath}/${x.slug}/`} style="padding-left:10px;">
+                  <a href={`${basePath}/${x.id}/`} style="padding-left:10px;">
                     <button
                       className={`transition-transform duration-300 transform hover:scale-105 ${
                         selectedColumn === index + 1

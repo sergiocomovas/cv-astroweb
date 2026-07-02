@@ -13,12 +13,12 @@ const EstaWeb = () => {
 
   const coso: Tecnologia[] = [
     {
-      name: "Astro",
+      name: "Astro 7.0",
       color: "from-orange-500",
       tumb: "astro.svg",
       tipo: "Arquitectura FrontEnd",
       descripcion:
-        "Astro es un marco de trabajo para la construcción de sitios web modernos y rápidos.",
+        "Astro 7.0 (julio 2026) es un marco de trabajo para la construcción de sitios web modernos y rápidos. Su compilador ahora está escrito en Rust, con builds 15-61% más rápidos.",
       meGusta: "Por su arquitectura clásica MPA y la propiedad de hidratación.",
       tecnologiaUsadaPor: "Futura promesa tecnologíca",
     },

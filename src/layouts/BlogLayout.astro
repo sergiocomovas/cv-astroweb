@@ -8,144 +8,67 @@ import LectorComponent from "../components/LectorComponent";
 
 type Props = CollectionEntry<"blog">["data"];
 
-console.log(Astro.props);
-
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 const baseImage: string = heroImage ?? "/post_img/placeholder.png";
 ---
 
-<html lang="es">
+<html lang="es" class="overflow-x-hidden">
   <head>
     <BaseHead title={title} description={description} />
   </head>
 
-  <body>
-    <style>
-      body {
-        margin: 0;
-        font-family: arial, "Arial", "Atkinson", sans-serif;
-      }
-
-      main {
-        display: flex;
-        justify-content: space-between;
-      }
-
-      aside {
-        flex: 0 0 30%; /* Ajusta el ancho del aside según tus necesidades */
-      }
-
-      img {
-        width: 100%;
-        height: auto;
-        border-radius: 18px; /* Estilo adicional, puedes ajustar según tus preferencias */
-      }
-
-      article {
-        flex: 0 0 65%;
-        overflow-x: scroll; /* Ajusta el ancho del artículo según tus necesidades */
-      }
-
-      .prose {
-        padding: 20px; /* Ajusta según sea necesario */
-      }
-
-      .title {
-        margin-bottom: 20px; /* Ajusta según sea necesario */
-      }
-
-      .date,
-      .last-updated-on {
-        font-size: 14px;
-        opacity: 0.9;
-        color: var(--color-secondary); /* Color del texto de la fecha */
-      }
-
-      hr {
-        margin: 15px 0;
-        border: 0;
-        border-top: 1px solid #ddd; /* Color de la línea horizontal */
-      }
-
-      ul li {
-        color:red;
-        background-color: purple !important;
-        color:blue;
-      }
-      
-      .cookies{
-        color:green
-      }
-
-      @media (max-width: 768px) {
-        main {
-          flex-direction: column;
-        }
-
-        aside {
-          width: 100%;
-        }
-
-        .hero-image {
-          position: relative;
-          top: initial;
-          padding: 20px 0; /* Ajusta según sea necesario */
-        }
-
-        .title {
-          font-size: 24px; /* Tamaño del título en dispositivos móviles */
-        }
-      }
-     
-    </style>
-
+  <body class="min-h-screen grid bg-base-100 text-base-content" style="grid-template-rows: auto 1fr auto;">
     <Menu />
-    <main>
-      <aside>
-        <div class="sticky top-0 p-3">
-          <a
-            title="volver al inicio"
-            onclick="javasctipt:window.history.back()"
-            }
-          >
+
+    <main class="mx-auto w-full max-w-6xl px-4 py-8 grid gap-6"
+          style="grid-template-columns: 30% 65%;">
+      <aside class="hidden md:block">
+        <div class="sticky top-4 p-3">
+          <a title="volver al inicio" href="/">
             <img
               transition:name={title.replace(/[^A-Za-z0-9]/gi, "")}
               width={200}
               height={200}
               src={baseImage}
               alt={description}
+              class="w-full h-auto rounded-lg"
             />
           </a>
-
           <LectorComponent client:load />
         </div>
       </aside>
 
-      <article>
-        <div class="prose">
-          <div class="title">
-            <div class="date">
-              <FormattedDate date={pubDate} />
-              {
-                updatedDate && (
-                  <div class="last-updated-on">
-                    Last updated on <FormattedDate date={updatedDate} />
-                  </div>
-                )
-              }
-            </div>
-            <h1
-              class="text-5xl font-bold leading-tight text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text"
-            >
-              {title}
-            </h1>
-            <hr />
+      <article class="prose max-w-none">
+        <div class="mb-5">
+          <div class="text-sm text-secondary">
+            <FormattedDate date={pubDate} />
+            {
+              updatedDate && (
+                <div class="text-secondary">
+                  Last updated on <FormattedDate date={updatedDate} />
+                </div>
+              )
+            }
           </div>
-          <slot />
+          <h1 class="text-5xl font-bold leading-tight text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text mt-2">
+            {title}
+          </h1>
+          <hr class="my-3 border-base-300" />
         </div>
+        <slot />
       </article>
     </main>
+
     <Footer />
   </body>
 </html>
+
+<style>
+  /* Responsive: 1 columna en móvil */
+  @media (max-width: 768px) {
+    body > main {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>

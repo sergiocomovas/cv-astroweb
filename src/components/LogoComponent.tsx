@@ -37,7 +37,7 @@ const LogoComponent = () => {
           opacity: 0.3;
           background-image: linear-gradient(
             -45deg,
-            var(--color-link) 50%,
+            var(--color-primary) 50%,
             var(--color-secondary) 50%
           );
           border-radius: 50%;

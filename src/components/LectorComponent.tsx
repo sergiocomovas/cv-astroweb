@@ -75,7 +75,7 @@ const ProgressBar = () => {
 
           .bottom-buttons-container button {
             padding: 0.5rem 1rem;
-            background-color: var(--color-link);
+            background-color: var(--color-primary);
             color: white;
             border: none;
             border-radius: 8px;

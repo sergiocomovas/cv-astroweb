@@ -1,74 +1,56 @@
 ---
-import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
 
-const links = [
-  { text: "Inicio", href: "/", class: "hidden md:block" },
+interface Props {
+  links?: { text: string; href: string; class?: string }[];
+}
+
+const { links = [
+  { text: "Inicio", href: "/", class: "hidden md:inline-flex" },
   { text: "Acerca de", href: "/acerca", class: "" },
-];
+] } = Astro.props;
+
+const { pathname } = Astro.url;
 ---
 
-<header>
-  <div class="corner">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+<header class="relative w-full overflow-hidden">
+  <!-- SVG wave diagonal decorativo -->
+  <div class="absolute top-0 left-0 right-0 z-[-1] pointer-events-none">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="w-full h-auto">
       <path
-        fill="var(--color-shadow)"
-        fill-opacity="0.8"
-        d="M0,128L1440,32L1440,0L0,0Z"></path>
+        fill="var(--color-secondary)"
+        fill-opacity="0.15"
+        d="M0,128L1440,32L1440,0L0,0Z"
+      ></path>
     </svg>
   </div>
-  <nav>
-    <a href="/" title={SITE_TITLE} class="flex items-center">
-      <img src="/comovas.svg" alt="" class="logo mr-2" />
-    </a>
 
-    <ul class="flex space-x-4">
-      {
-        links.map((link) => (
+  <!-- Navbar daisyUI -->
+  <nav class="navbar relative transform -translate-y-8 max-w-6xl mx-auto px-4">
+    <!-- Logo -->
+    <div class="navbar-start">
+      <a href="/" title={SITE_TITLE} class="flex items-center gap-2">
+        <img src="/comovas.svg" alt="Logo comovas" class="w-[65px] h-[65px]" />
+      </a>
+    </div>
+
+    <!-- Links de navegación -->
+    <div class="navbar-end">
+      <ul class="flex items-center gap-2">
+        {links.map((link) => (
           <li class={link.class}>
-            <HeaderLink class="text-dark" href={link.href}>
+            <a
+              href={link.href}
+              class:list={[
+                "btn btn-ghost btn-sm",
+                { "text-primary font-bold underline": pathname === link.href || pathname.replace(/\/$/, "") === link.href },
+              ]}
+            >
               {link.text}
-            </HeaderLink>
+            </a>
           </li>
-        ))
-      }
-    </ul>
+        ))}
+      </ul>
+    </div>
   </nav>
 </header>
-
-<style>
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.4rem;
-    position: relative;
-    transform: translateY(-2rem);
-    margin: 0px;
-  }
-
-  nav a {
-    padding: 0.5rem 1rem;
-    color: var(--black);
-    text-decoration: none;
-    transition: border-color 0.3s ease;
-  }
-
-  nav a.active {
-    border-bottom: 4px solid var(--accent);
-  }
-
-  .logo {
-    width: 65px;
-    height: 65px;
-  }
-
-  .corner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: -1;
-  }
-  
-</style>

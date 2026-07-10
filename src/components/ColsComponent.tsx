@@ -1,142 +1,144 @@
-import { useState, useEffect } from "preact/hooks";
+import { useState, useEffect } from 'preact/hooks';
 
-// El componente ahora recibe los posts como props y basePath opcional
-const ColScroll = ({ posts, basePath = '/blog' }) => {
+interface Post {
+  id: string;
+  data: {
+    title: string;
+    description: string;
+    heroImage?: string;
+  };
+}
+
+interface Props {
+  posts: Post[];
+  basePath?: string;
+}
+
+const ColsComponent = ({ posts, basePath = '/blog' }: Props) => {
   const [selectedColumn, setSelectedColumn] = useState(1);
 
-  const changeColumn = (direction) => {
-    const blogElement = document.getElementById("blog");
-
+  const changeColumn = (direction: number) => {
+    const blogElement = document.getElementById('blog');
     if (blogElement) {
-      blogElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      blogElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-
     const newColumn = selectedColumn + direction;
     if (newColumn >= 1 && newColumn <= posts.length) {
       setSelectedColumn(newColumn);
     }
   };
 
-  const seleccionarCol = (index) => {
-    setSelectedColumn(index);
+  const seleccionarCol = (index: number) => {
+    setSelectedColumn(index + 1);
   };
 
   useEffect(() => {
-    const storedPosition = localStorage.getItem("selectedColumnPosition");
-
+    const storedPosition = localStorage.getItem('selectedColumnPosition');
     if (storedPosition) {
       setSelectedColumn(parseInt(storedPosition, 10) / 317 + 1);
     }
-  }, []); // El efecto solo se ejecuta una vez al montar el componente
+  }, []);
 
   useEffect(() => {
-    // Obtén la referencia al contenedor de las columnas
-    const columnsContainer: any = document.getElementById("columns-container");
-
-    // Calcula la posición de la columna seleccionada
-    const selectedColumnPosition = (selectedColumn - 1) * 317; // 317 es el ancho de cada columna
-
-    // Mueve el scroll al inicio de la columna seleccionada
-    columnsContainer.scrollLeft = selectedColumnPosition;
-
-    // Guarda selectedColumnPosition en localStorage
-    localStorage.setItem(
-      "selectedColumnPosition",
-      selectedColumnPosition.toString()
-    );
+    const columnsContainer = document.getElementById('columns-container');
+    if (columnsContainer) {
+      const selectedColumnPosition = (selectedColumn - 1) * 317;
+      columnsContainer.scrollLeft = selectedColumnPosition;
+      localStorage.setItem('selectedColumnPosition', selectedColumnPosition.toString());
+    }
   }, [selectedColumn]);
 
+  const scrollByAmount = (direction: number) => {
+    const container = document.getElementById('columns-container');
+    if (container) {
+      container.scrollBy({ left: direction * 317, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <>
-      <style>
-        {`
-        .rosa{
-          border: 1px solid var(--color-secondary) !important;
-        }
-        `}
-      </style>
-      <div id="blog">
-        <div
-          className="w-full relative overflow-x-auto translate-y-20"
-          style="z-index:2;"
+    <div id="blog" class="relative">
+      {/* Botones de navegación circulares (solo desktop) */}
+      <div class="hidden md:flex justify-end gap-2 mb-4">
+        <button
+          onClick={() => scrollByAmount(-1)}
+          class="btn btn-circle btn-ghost"
+          aria-label="Anterior"
         >
-          <div className="flex justify-between p-2">
-            <button
-              onClick={() => changeColumn(-1)}
-              class="transition-colors duration-300
-            focus:outline-none focus:ring  shadow-blue-900  shadow-md"
-            >
-              Anterior
-            </button>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button
+          onClick={() => scrollByAmount(1)}
+          class="btn btn-circle btn-ghost"
+          aria-label="Siguiente"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
 
-            <button
-              onClick={() => changeColumn(1)}
-              class="transition-colors duration-300 focus:outline-none focus:ring  shadow-blue-900  shadow-md"
+      {/* Carrusel con snap scroll */}
+      <div
+        id="columns-container"
+        class="row-full flex w-full overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 pb-4"
+      >
+        {/* Spacer izquierdo */}
+        <div class="flex-none w-4 md:w-8"></div>
+
+        {posts.map((x, index) => {
+          const isSelected = selectedColumn === index + 1;
+          return (
+            <div
+              key={x.id}
+              class="flex-none w-[283px] snap-start"
             >
-              Siguiente
-            </button>
-          </div>
-        </div>
-        <div
-          id="columns-container"
-          style="z-index:0"
-          className="row-full flex w-full overflow-x-auto"
-        >
-          {posts.map((x, index) => (
-            <section key={x.id} className="relative">
-              <aside
-                className={`${
-                  selectedColumn === index + 1
-                    ? " shadow-pink-900 shadow-lg rosa"
-                    : ""
-                }`}
-                style="padding:0px; height: 515px; border: 1px solid var(--color-table); background-color: var(--color-primary-accent)"
+              <div
+                class={`card w-[283px] h-[515px] cursor-pointer transition-all duration-300 ${
+                  isSelected ? 'border-2 border-secondary shadow-lg shadow-secondary/30' : 'border border-base-300 shadow-md'
+                } bg-base-200`}
+                onClick={() => seleccionarCol(index)}
               >
+                {/* Imagen de fondo */}
                 <figure
-                  className="figure-container thumbnail hover:opacity-75 transition ease-in-out duration-150"
-                  style={`background-image: url('${
-                    x.data?.heroImage ?? "/post_img/placeholder.png"
-                  }'); view-transition-name:${x.data.title.replace(
-                    /[^A-Za-z0-9]/gi,
-                    ""
-                  )};`}
-                ></figure>
+                  class="figure-container thumbnail hover:opacity-75 transition ease-in-out duration-150"
+                  style={`background-image: url('${x.data?.heroImage ?? '/post_img/placeholder.png'}'); view-transition-name:${x.data.title.replace(/[^A-Za-z0-9]/gi, '')};`}
+                />
 
-                <div style="padding: 0px 0px 10px 10px">
-                  <p
-                    className={`${
-                      selectedColumn === index + 1
-                        ? "font-bold text-xl text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text"
-                        : "font-bold text-xl"
-                    }`}
-                  >
+                {/* Cuerpo de la card */}
+                <div class="card-body p-3">
+                  <p class={`text-xl font-bold ${isSelected ? 'text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text' : ''}`}>
                     {x.data.title}
                   </p>
-                  <p style="margin:0px; opacity:0.5">{x.data.description}</p>
+                  <p class="text-sm opacity-60">{x.data.description}</p>
                 </div>
 
-                <figure className="figure-button">
-                  <a href={`${basePath}/${x.id}/`} style="padding-left:10px;">
+                {/* Overlay con botón */}
+                <div class="figure-button flex items-end justify-center pb-3">
+                  <a href={`${basePath}/${x.id}/`}>
                     <button
-                      className={`transition-transform duration-300 transform hover:scale-105 ${
-                        selectedColumn === index + 1
-                          ? " border-pink-500 bg-gradient-to-r from-purple-500 to-pink-500 shadow-md"
-                          : "shadow-sm"
+                      class={`btn btn-sm transition-transform duration-300 hover:scale-105 ${
+                        isSelected
+                          ? 'btn-primary bg-gradient-to-r from-purple-500 to-pink-500 border-none text-white'
+                          : 'btn-ghost'
                       }`}
-                      onClick={() => seleccionarCol(index + 1)}
+                      onClick={(e: Event) => e.stopPropagation()}
                     >
                       Seguir leyendo
                     </button>
                   </a>
-                </figure>
-              </aside>
-            </section>
-          ))}
-        </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+
+        {/* Spacer derecho */}
+        <div class="flex-none w-4 md:w-8"></div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default ColScroll;
-//
+export default ColsComponent;

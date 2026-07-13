@@ -1,56 +1,31 @@
 ---
-import { SITE_TITLE } from "../consts";
-
-interface Props {
-  links?: { text: string; href: string; class?: string }[];
-}
-
-const { links = [
+const links = [
   { text: "Inicio", href: "/", class: "hidden md:inline-flex" },
   { text: "Acerca de", href: "/acerca", class: "" },
-] } = Astro.props;
-
-const { pathname } = Astro.url;
+];
 ---
 
-<header class="relative w-full overflow-hidden">
-  <!-- SVG wave diagonal decorativo -->
-  <div class="absolute top-0 left-0 right-0 z-[-1] pointer-events-none">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="w-full h-auto">
-      <path
-        fill="var(--color-secondary)"
-        fill-opacity="0.15"
-        d="M0,128L1440,32L1440,0L0,0Z"
-      ></path>
-    </svg>
-  </div>
-
-  <!-- Navbar daisyUI -->
-  <nav class="navbar relative transform -translate-y-8 max-w-6xl mx-auto px-4">
-    <!-- Logo -->
-    <div class="navbar-start">
-      <a href="/" title={SITE_TITLE} class="flex items-center gap-2">
-        <img src="/comovas.svg" alt="Logo comovas" class="w-[65px] h-[65px]" />
-      </a>
-    </div>
-
-    <!-- Links de navegación -->
-    <div class="navbar-end">
-      <ul class="flex items-center gap-2">
-        {links.map((link) => (
-          <li class={link.class}>
-            <a
-              href={link.href}
-              class:list={[
-                "btn btn-ghost btn-sm",
-                { "text-primary font-bold underline": pathname === link.href || pathname.replace(/\/$/, "") === link.href },
-              ]}
-            >
-              {link.text}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
+<header class="sticky top-0 inset-x-0 z-50 flex items-center justify-between backdrop-blur-sm border-b border-white/10 p-5 bg-black/70">
+  <h1 class="text-lg font-bold uppercase tracking-wider">
+    <a href="/" class="flex items-baseline gap-1">
+      <span>COMO</span><span class="neon">VAS</span>
+      <span class="text-xs opacity-40 ml-1">v_2026</span>
+    </a>
+  </h1>
+  <nav>
+    <ul class="flex items-center gap-6">
+      {links.map((link) => (
+        <li class={link.class}>
+          <a href={link.href} class="text-sm uppercase hover-flicker group">
+            [ <span class="group-hover:text-primary transition-colors">{link.text}</span> ]
+          </a>
+        </li>
+      ))}
+      <li>
+        <a href="https://github.com/sergiocomovas" target="_blank" class="text-sm uppercase hover-flicker group">
+          [ <span class="group-hover:text-primary transition-colors">GitHub</span> ]
+        </a>
+      </li>
+    </ul>
   </nav>
 </header>

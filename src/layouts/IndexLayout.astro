@@ -1,58 +1,67 @@
 ---
 import BaseHead from "../components/BaseHeadComponent.astro";
 import Footer from "../components/FooterComponent.astro";
-
-import Logo from "../components/LogoComponent.tsx";
-
-import EstaWeb from "../components/EstaWebComponent.tsx";
-
-import Cols from "../components/ColsComponent.tsx";
 import Menu from "../components/MenuHorizontalComponent.astro";
-import IntroLinks from "../components/IntroLinksComponent.astro";
-import Fronts from "../components/FrontsComponent.astro";
 
 import { getCollection } from "astro:content";
 import GlobeBackgroundComponent from "../components/GlobeBackgroundComponent.astro";
+import Cols from "../components/ColsComponent.tsx";
+import EstaWeb from "../components/EstaWebComponent.tsx";
+import Fronts from "../components/FrontsComponent.astro";
+import IntroLinks from "../components/IntroLinksComponent.astro";
 import GsapAnimations from "../components/GsapAnimations.astro";
 
 const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 15);
-
 const iaPosts = (await getCollection("blog_ia"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 15);
 ---
 
 <!doctype html>
-<html lang="es" class="overflow-x-hidden">
+<html lang="es" class="overflow-x-hidden" data-theme="dark">
   <head>
-    <BaseHead title="Sergio🙋 『CØMO』『VAS』" description="Página Principal" />
+    <BaseHead title="Sergio 🙋 『CØMO』『VAS』" description="Página Principal" />
   </head>
-  <body class="min-h-screen grid bg-base-100 text-base-content" style="grid-template-rows: auto 1fr auto;">
+  <body class="bg-base-100 text-base-content overflow-x-hidden min-h-screen grid" style="grid-template-rows: auto 1fr auto;">
     <Menu />
 
-    <main class="mx-auto w-full max-w-6xl px-4">
+    <main class="w-full max-w-6xl mx-auto px-4">
+      <!-- Hero: jumbo marquee + globo de fondo -->
       <GlobeBackgroundComponent />
 
-      <div class="mb-10"><EstaWeb client:only /></div>
+      <!-- Sección stack tecnológico -->
+      <section class="mt-10 mb-10" data-gsap>
+        <div class="text-sm uppercase tracking-wider opacity-60 px-2 mb-4">
+          // <span class="neon">STACK</span> TECNOLÓGICO
+        </div>
+        <div class="mb-10">
+          <EstaWeb client:only />
+        </div>
+      </section>
 
-      <Cols posts={posts} basePath="/blog" client:only />
+      <!-- Blog posts -->
+      <section class="mb-10" data-gsap>
+        <div class="text-sm uppercase tracking-wider opacity-60 px-2 mb-4">
+          // <span class="neon">BLOG</span> ÚLTIMAS PUBLICACIONES
+        </div>
+        <Cols posts={posts} basePath="/blog" client:only />
+      </section>
 
-      <div class="mb-4 text-center mt-10">
-        <h2 class="text-2xl font-bold text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text mb-4">
-          🤖 Publicaciones de Inteligencia Artificial
-        </h2>
-      </div>
-
-      <Cols posts={iaPosts} basePath="/blog_ia" client:only />
+      <!-- Blog IA -->
+      <section class="mb-10" data-gsap>
+        <div class="text-sm uppercase tracking-wider opacity-60 px-2 mb-4">
+          // <span class="purple">IA</span> PUBLICACIONES INTELIGENCIA ARTIFICIAL
+        </div>
+        <Cols posts={iaPosts} basePath="/blog_ia" client:only />
+      </section>
 
       <Fronts />
       <IntroLinks />
     </main>
 
-    <Footer />
     <GsapAnimations />
-    <script is:inline src="../scripts/hscroll.js"></script>
+    <Footer />
   </body>
 </html>

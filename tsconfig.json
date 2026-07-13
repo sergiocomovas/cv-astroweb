@@ -3,6 +3,9 @@
   "compilerOptions": {
     "strictNullChecks": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "preact"
-  }
+    "jsxImportSource": "preact",
+    "allowJs": true,
+    "checkJs": false
+  },
+  "exclude": ["public/**/*", "dist/**/*", "src/scripts/**/*"]
 }

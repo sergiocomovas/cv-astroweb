@@ -1,68 +1,36 @@
 ---
-const datos = [
-  {
-    id: "3",
-    img: "logo_dev.png",
-    tipo: "sergiocomovas",
-    desc: "Repositorio de GITHUB",
-    url: "https://github.com/sergiocomovas/",
-  },
-  {
-    id: "4",
-    img: "logo_sergiocomovas.png",
-    tipo: "@SergioComoVas",
-    desc: "Cuenta de 𝕏 principal",
-    url: "https://x.com/sergiocomovas",
-  },
-  {
-    id: "5",
-    img: "logo_hilos.png",
-    tipo: "@SergioComoVas",
-    desc: "Cuenta de threads",
-    url: "https://www.threads.net/@sergiocomovas",
-  },
-  {
-    id: "2",
-    img: "logo_palmainfo.png",
-    tipo: "Palma Info y Sucesos Asombrosos",
-    desc: "Comunidad y grupo de Telegram",
-    url: "https://twitter.com/i/communities/1527611374611857410",
-  },
+const enlaces = [
+  { nombre: "sergiocomovas", desc: "Repositorio de GITHUB", url: "https://github.com/sergiocomovas/", icon: "🐙" },
+  { nombre: "@SergioComoVas", desc: "Cuenta de 𝕏 principal", url: "https://x.com/sergiocomovas", icon: "𝕏" },
+  { nombre: "@SergioComoVas", desc: "Cuenta de Threads", url: "https://www.threads.net/@sergiocomovas", icon: "🧵" },
+  { nombre: "Palma Info", desc: "Comunidad y grupo de Telegram", url: "https://twitter.com/i/communities/1527611374611857410", icon: "📢" },
 ];
+
+const duplicated = [...enlaces, ...enlaces, ...enlaces];
 ---
 
-<div class="row-full relative" data-gsap style="height: 150px; background-image: url('/fondo.svg'); background-size: cover; background-repeat: no-repeat; margin-bottom: 0px;">
+<section class="row-full relative mb-10" data-gsap>
   <div class="max-w-6xl mx-auto px-4">
-    <h3 class="hidden text-center md:block font-bold mb-4 pt-4">
-      Enlaces externos y RRSS
-    </h3>
-
-    <div class="flex gap-3 overflow-x-auto pb-2">
-      {datos.map((d) => (
-        <a
-          class="shine card bg-neutral/30 border border-neutral hover:bg-neutral/50 transition-all p-3 flex items-center gap-2 min-w-[300px]"
-          href={d.url}
-          target="_blank"
-        >
-          <div class="avatar">
-            <div class="w-12 rounded-full">
-              <img
-                src={`logos_cv_2022/${d.img}`}
-                alt={d.img}
-                loading="lazy"
-              />
-            </div>
+    <div class="text-sm uppercase tracking-wider opacity-60 mb-4">
+      // <span class="neon">CONNECT</span> REDES Y ENLACES
+    </div>
+    <div class="marqy w-full" data-direction="left" data-pause-on-hover>
+      <div class="marqy-inner">
+        {duplicated.map((enlace) => (
+          <div class="marqy-content">
+            <a href={enlace.url} target="_blank"
+              class="shine flex items-center gap-3 p-3 mx-2 bg-white/5 border border-white/10 rounded-lg min-w-[280px] flex-shrink-0 transition-all duration-150 hover:border-primary hover:bg-white/10">
+              <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-lg">
+                {enlace.icon}
+              </div>
+              <div class="flex flex-col">
+                <span class="font-bold text-sm whitespace-nowrap">{enlace.nombre}</span>
+                <span class="text-xs opacity-40 whitespace-nowrap">{enlace.desc}</span>
+              </div>
+            </a>
           </div>
-          <div class="flex flex-col">
-            <span class="font-bold text-base-100 whitespace-nowrap">
-              {d.tipo}
-            </span>
-            <span class="text-xs text-base-100/70 whitespace-nowrap">
-              {d.desc}
-            </span>
-          </div>
-        </a>
-      ))}
+        ))}
+      </div>
     </div>
   </div>
-</div>
+</section>

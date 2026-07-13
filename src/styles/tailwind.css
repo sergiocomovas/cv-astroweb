@@ -1,90 +1,45 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark;
+  themes: dark --default --prefersdark;
   logs: false;
 }
 
-/* ===== TEMA LIGHT (basado en DESIGN.md) ===== */
-@plugin "daisyui/theme" {
-  name: "light";
-  default: true;
-  prefersdark: false;
-  color-scheme: light;
-
-  --color-base-100: #FFFFFF;
-  --color-base-200: #E9E9E9;
-  --color-base-300: #d4d4d4;
-  --color-base-content: #000000;
-
-  --color-primary: #118BEE;
-  --color-primary-content: #FFFFFF;
-  --color-secondary: #920DE9;
-  --color-secondary-content: #FFFFFF;
-  --color-accent: #06B6D4;
-  --color-accent-content: #FFFFFF;
-
-  --color-neutral: #112331;
-  --color-neutral-content: #F7F7F7;
-
-  --color-info: #118BEE;
-  --color-info-content: #FFFFFF;
-  --color-success: #16a34a;
-  --color-success-content: #FFFFFF;
-  --color-warning: #f59e0b;
-  --color-warning-content: #000000;
-  --color-error: #dc2626;
-  --color-error-content: #FFFFFF;
-
-  --radius-selector: 0.3125rem;
-  --radius-field: 0.3125rem;
-  --radius-box: 0.625rem;
-
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
-
-  --border: 1px;
-  --depth: 1;
-  --noise: 0;
-}
-
-/* ===== TEMA DARK (basado en DESIGN.md) ===== */
+/* ===== TEMA DARK COMOVAS (basado en prototipo marqy) ===== */
 @plugin "daisyui/theme" {
   name: "dark";
-  default: false;
+  default: true;
   prefersdark: true;
   color-scheme: dark;
 
-  --color-base-100: #112331;
-  --color-base-200: #1a2f42;
-  --color-base-300: #25455F;
-  --color-base-content: #F7F7F7;
+  --color-base-100: #000000;
+  --color-base-200: #0a0a0a;
+  --color-base-300: #1a1a1a;
+  --color-base-content: #ffffff;
 
-  --color-primary: #0097FC;
-  --color-primary-content: #112331;
-  --color-secondary: #E20DE9;
-  --color-secondary-content: #F7F7F7;
-  --color-accent: #0891B2;
-  --color-accent-content: #F7F7F7;
+  --color-primary: #00ffff;
+  --color-primary-content: #000000;
+  --color-secondary: #e20de9;
+  --color-secondary-content: #ffffff;
+  --color-accent: #00ffff;
+  --color-accent-content: #000000;
 
-  --color-neutral: #131D2B;
-  --color-neutral-content: #F7F7F7;
+  --color-neutral: #0a0a0a;
+  --color-neutral-content: #ffffff;
 
-  --color-info: #0097FC;
-  --color-info-content: #112331;
+  --color-info: #00ffff;
+  --color-info-content: #000000;
   --color-success: #22c55e;
-  --color-success-content: #112331;
+  --color-success-content: #000000;
   --color-warning: #f59e0b;
-  --color-warning-content: #112331;
+  --color-warning-content: #000000;
   --color-error: #ef4444;
-  --color-error-content: #F7F7F7;
+  --color-error-content: #ffffff;
 
   --radius-selector: 0.3125rem;
   --radius-field: 0.3125rem;
-  --radius-box: 0.625rem;
-
+  --radius-box: 0.5rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
-
   --border: 1px;
   --depth: 1;
   --noise: 0;

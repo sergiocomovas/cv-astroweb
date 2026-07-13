@@ -1,33 +1,41 @@
 ---
-/**
- * Animaciones GSAP selectivas para web.comovas.es
- * Fade + slide-up al entrar viewport (NO se aplica a carruseles)
- */
+// GsapAnimations.astro — fade-in al entrar viewport
 ---
 
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import gsap from "gsap";
+  import ScrollTrigger from "gsap/ScrollTrigger";
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Animar secciones principales (NO carruseles, NO globe)
-  const sections = document.querySelectorAll('[data-gsap]');
-  sections.forEach((section) => {
-    gsap.fromTo(
-      section,
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
-      }
-    );
-  });
+  const initGsap = () => {
+    // Fade-in + slide-up en secciones marcadas con data-gsap
+    gsap.utils.toArray<HTMLElement>("[data-gsap]").forEach((section) => {
+      gsap.fromTo(
+        section,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    });
+  };
+
+  // Init on load
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initGsap);
+  } else {
+    initGsap();
+  }
+
+  // Re-init after Astro view transitions
+  document.addEventListener("astro:after-swap", initGsap);
 </script>

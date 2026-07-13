@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COMO VAS · Sergio R</title>
+<style>
+/* ===== Reset ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:ui-monospace,'SF Mono',Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace;background:#000;color:#fff;line-height:1.5;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+
+/* ===== Marqy-like marquee ===== */
+@keyframes marqy-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes marqy-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+@keyframes marqy-up{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@keyframes marqy-down{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+
+.marqy{overflow:hidden;display:flex}
+.marqy-inner{display:flex;flex-shrink:0;animation:marqy-left 30s linear infinite}
+.marqy[data-direction="right"] .marqy-inner{animation-name:marqy-right}
+.marqy[data-direction="up"] .marqy-inner{animation-name:marqy-up;flex-direction:column;height:200%}
+.marqy[data-direction="down"] .marqy-inner{animation-name:marqy-down;flex-direction:column;height:200%}
+.marqy[data-pause-on-hover]:hover .marqy-inner{animation-play-state:paused}
+.marqy-content{display:flex;flex-shrink:0}
+.marqy[data-direction="up"] .marqy-content,
+.marqy[data-direction="down"] .marqy-content{flex-direction:column}
+
+/* ===== Flicker ===== */
+@keyframes flicker-opacity{0%,100%{opacity:1}50%{opacity:.4}}
+.hover-flicker:hover{animation:flicker-opacity .3s ease-in-out}
+
+/* ===== Header ===== */
+header.sticky-header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;backdrop-filter:blur(8px);background:rgba(0,0,0,.7);border-bottom:1px solid rgba(255,255,255,.1)}
+header.sticky-header h1{font-size:1.5rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+header.sticky-header .version{color:rgba(255,255,255,.4);font-size:.875rem;margin-left:.5rem}
+header.sticky-header nav ul{display:flex;gap:2.5rem}
+header.sticky-header nav a{font-size:.875rem;text-transform:uppercase}
+header.sticky-header nav a span{display:inline-block}
+header.sticky-header nav a:hover span{animation:flicker-opacity .3s ease-in-out;color:#0ff}
+
+/* ===== Hero jumbo marquee ===== */
+.hero-marquee{height:clamp(8rem,40vw,28rem);background:#000;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.1)}
+.hero-marquee .marqy{width:100%;height:100%}
+.hero-marquee .marqy-inner{height:100%}
+.hero-text{font-size:clamp(4rem,20vw,16rem);font-weight:700;text-transform:uppercase;white-space:nowrap;padding:0 1rem;line-height:1;color:#fff;transition:color .15s ease,background .15s ease;cursor:default}
+.hero-text:hover{color:#0ff;background:rgba(0,255,255,.1)}
+
+/* ===== Section base ===== */
+section{padding:3rem 0}
+.section-title{font-size:1.5rem;font-weight:700;text-transform:uppercase;padding:0 2rem 2rem;letter-spacing:.05em;color:rgba(255,255,255,.6)}
+.section-title span{color:#0ff}
+
+/* ===== Tech cards marquee ===== */
+.tech-marquee .card{width:300px;flex-shrink:0;margin:0 1rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:.5rem;overflow:hidden;transition:border-color .15s ease,background .15s ease}
+.tech-marquee .card:hover{border-color:#0ff;background:rgba(0,255,255,.05)}
+.tech-marquee .card-img{height:120px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.03);font-size:3rem}
+.tech-marquee .card-body{padding:1.25rem}
+.tech-marquee .card-body h3{font-size:1.125rem;font-weight:700;margin-bottom:.5rem}
+.tech-marquee .card-body .type{display:inline-block;font-size:.75rem;padding:.25rem .75rem;border-radius:.25rem;background:rgba(0,255,255,.1);color:#0ff;margin-bottom:.75rem}
+.tech-marquee .card-body p{font-size:.875rem;color:rgba(255,255,255,.5);line-height:1.4}
+
+/* ===== Blog cards marquee ===== */
+.blog-marquee .card{width:400px;flex-shrink:0;margin:0 1rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:.5rem;overflow:hidden;transition:all .15s ease}
+.blog-marquee .card:hover{border-color:#e20de9;box-shadow:0 0 20px rgba(226,13,233,.15)}
+.blog-marquee .card-img{height:200px;object-fit:cover;width:100%}
+.blog-marquee .card-body{padding:1.25rem}
+.blog-marquee .card-body .date{font-size:.75rem;color:rgba(255,255,255,.4);margin-bottom:.5rem}
+.blog-marquee .card-body h3{font-size:1.125rem;font-weight:700;margin-bottom:.5rem;line-height:1.3}
+.blog-marquee .card-body p{font-size:.875rem;color:rgba(255,255,255,.5);line-height:1.4}
+
+/* ===== Projects grid ===== */
+.projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;padding:0 2rem}
+.projects a{display:block;padding:1.25rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:.5rem;transition:all .15s ease}
+.projects a:hover{border-color:#0ff;background:rgba(0,255,255,.05);transform:translateY(-2px)}
+.projects a h3{font-size:1rem;font-weight:700;margin-bottom:.25rem}
+.projects a p{font-size:.75rem;color:rgba(255,255,255,.4)}
+
+/* ===== Social marquee ===== */
+.social-marquee .social-card{display:flex;align-items:center;gap:.75rem;padding:1rem 1.5rem;margin:0 .5rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:.5rem;min-width:280px;flex-shrink:0;transition:all .15s ease}
+.social-marquee .social-card:hover{border-color:#0ff;background:rgba(0,255,255,.05)}
+.social-marquee .social-card .avatar{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+.social-marquee .social-card .info{display:flex;flex-direction:column}
+.social-marquee .social-card .info .name{font-weight:700;font-size:.875rem;white-space:nowrap}
+.social-marquee .social-card .info .desc{font-size:.75rem;color:rgba(255,255,255,.4);white-space:nowrap}
+
+/* ===== Footer ===== */
+footer{border-top:1px solid rgba(255,255,255,.1);padding:2rem;margin-top:2rem}
+footer .footer-content{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;max-width:1200px;margin:0 auto}
+footer .contact{font-size:.875rem}
+footer .contact a{color:#0ff}
+footer .contact a:hover{animation:flicker-opacity .3s ease-in-out}
+footer .psm{opacity:.4;font-size:.75rem}
+
+/* ===== Responsive ===== */
+@media(max-width:768px){
+  header.sticky-header{padding:1rem}
+  header.sticky-header nav ul{gap:1rem}
+  header.sticky-header nav a{font-size:.75rem}
+  .section-title{padding:0 1rem 1.5rem}
+  .projects{padding:0 1rem;grid-template-columns:repeat(2,1fr)}
+  .tech-marquee .card,.blog-marquee .card{width:280px}
+  footer .footer-content{flex-direction:column;text-align:center}
+}
+
+/* ===== Glow accent ===== */
+.neon{color:#0ff}
+.purple{color:#e20de9}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,255,255,.3)}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="sticky-header">
+  <h1>
+    <a href="/">COMO<span class="neon">VAS</span></a>
+    <span class="version">v_2026</span>
+  </h1>
+  <nav>
+    <ul>
+      <li><a href="#blog" class="hover-flicker">[ <span>BLOG</span> ]</a></li>
+      <li><a href="#stack" class="hover-flicker">[ <span>STACK</span> ]</a></li>
+      <li><a href="https://github.com/sergiocomovas" target="_blank" class="hover-flicker">[ <span>GITHUB</span> ]</a></li>
+      <li><a href="/acerca" class="hover-flicker">[ <span>ABOUT</span> ]</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ===== HERO: jumbo marquee ===== -->
+<section class="hero-marquee">
+  <div class="marqy" data-direction="left">
+    <div class="marqy-inner">
+      <div class="marqy-content">
+        <span class="hero-text">SERGIO</span>
+        <span class="hero-text" style="color:#0ff">COMO</span>
+        <span class="hero-text" style="color:#e20de9">VAS</span>
+        <span class="hero-text">DEV</span>
+        <span class="hero-text" style="color:#0ff">PALMA</span>
+      </div>
+      <div class="marqy-content" aria-hidden="true">
+        <span class="hero-text">SERGIO</span>
+        <span class="hero-text" style="color:#0ff">COMO</span>
+        <span class="hero-text" style="color:#e20de9">VAS</span>
+        <span class="hero-text">DEV</span>
+        <span class="hero-text" style="color:#0ff">PALMA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TECH STACK: horizontal marquee ===== -->
+<section id="stack">
+  <div class="section-title">// <span>STACK</span> TECNOLÓGICO</div>
+  <div class="marqy tech-marquee" data-direction="left" data-pause-on-hover>
+    <div class="marqy-inner">
+      <div class="marqy-content">
+        <div class="card">
+          <div class="card-img">🚀</div>
+          <div class="card-body">
+            <span class="type">Framework</span>
+            <h3>Astro 7</h3>
+            <p>MPA architecture, view transitions, Rust compiler. Builds 15-61% más rápidos.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">⚡</div>
+          <div class="card-body">
+            <span class="type">UI Library</span>
+            <h3>Preact</h3>
+            <p>Equivalente libre a React. Tamaño pequeño, signals, rendimiento eficiente.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">🔷</div>
+          <div class="card-body">
+            <span class="type">Lenguaje</span>
+            <h3>TypeScript</h3>
+            <p>Superset de JavaScript con tipado estático. Detección de errores en compilación.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">🎨</div>
+          <div class="card-body">
+            <span class="type">CSS</span>
+            <h3>Tailwind + daisyUI</h3>
+            <p>Framework utilitario + componentes semánticos. CSS-first config v4.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">🎬</div>
+          <div class="card-body">
+            <span class="type">Animación</span>
+            <h3>GSAP</h3>
+            <p>ScrollTrigger, timelines, animaciones selectivas. El estándar de la industria.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">📡</div>
+          <div class="card-body">
+            <span class="type">VCS</span>
+            <h3>Git + GitHub</h3>
+            <p>Control de versiones distribuido. CI/CD con GitHub Actions.</p>
+          </div>
+        </div>
+      </div>
+      <div class="marqy-content" aria-hidden="true">
+        <div class="card">
+          <div class="card-img">🚀</div>
+          <div class="card-body">
+            <span class="type">Framework</span>
+            <h3>Astro 7</h3>
+            <p>MPA architecture, view transitions, Rust compiler. Builds 15-61% más rápidos.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">⚡</div>
+          <div class="card-body">
+            <span class="type">UI Library</span>
+            <h3>Preact</h3>
+            <p>Equivalente libre a React. Tamaño pequeño, signals, rendimiento eficiente.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">🔷</div>
+          <div class="card-body">
+            <span class="type">Lenguaje</span>
+            <h3>TypeScript</h3>
+            <p>Superset de JavaScript con tipado estático. Detección de errores en compilación.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">🎨</div>
+          <div class="card-body">
+            <span class="type">CSS</span>
+            <h3>Tailwind + daisyUI</h3>
+            <p>Framework utilitario + componentes semánticos. CSS-first config v4.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">🎬</div>
+          <div class="card-body">
+            <span class="type">Animación</span>
+            <h3>GSAP</h3>
+            <p>ScrollTrigger, timelines, animaciones selectivas. El estándar de la industria.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">📡</div>
+          <div class="card-body">
+            <span class="type">VCS</span>
+            <h3>Git + GitHub</h3>
+            <p>Control de versiones distribuido. CI/CD con GitHub Actions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BLOG: horizontal marquee (reverse direction) ===== -->
+<section id="blog">
+  <div class="section-title">// <span>BLOG</span> ÚLTIMAS PUBLICACIONES</div>
+  <div class="marqy blog-marquee" data-direction="right" data-pause-on-hover>
+    <div class="marqy-inner">
+      <div class="marqy-content">
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=1" alt="">
+          <div class="card-body">
+            <div class="date">2024-05-20</div>
+            <h3>¡No vas a creer lo gratis que es desplegar apps usando esto!</h3>
+            <p>Explorando Google IDX + Spring Boot + Koyeb para deploy gratuito.</p>
+          </div>
+        </a>
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=2" alt="">
+          <div class="card-body">
+            <div class="date">2024-01-11</div>
+            <h3>LinkedIn 2024: El arte de vender tu perfil profesional</h3>
+            <p>Cómo optimizar tu perfil de LinkedIn para recruiters en 2024.</p>
+          </div>
+        </a>
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=3" alt="">
+          <div class="card-body">
+            <div class="date">2022-10-31</div>
+            <h3>Cosas Astro.js: Mi nueva web</h3>
+            <p>Por qué elegí Astro para mi web personal y qué aprendí.</p>
+          </div>
+        </a>
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=4" alt="">
+          <div class="card-body">
+            <div class="date">2022-08-03</div>
+            <h3>Pruebas con Svelte: Un framework que mola</h3>
+            <p>Mis primeros pasos con Svelte y por qué me sorprendió.</p>
+          </div>
+        </a>
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=5" alt="">
+          <div class="card-body">
+            <div class="date">2021-09-30</div>
+            <h3>LinkedIn: Mi experiencia como developer</h3>
+            <p>Reflexiones sobre mi carrera y cómo LinkedIn me ayudó.</p>
+          </div>
+        </a>
+      </div>
+      <div class="marqy-content" aria-hidden="true">
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=1" alt="">
+          <div class="card-body">
+            <div class="date">2024-05-20</div>
+            <h3>¡No vas a creer lo gratis que es desplegar apps usando esto!</h3>
+            <p>Explorando Google IDX + Spring Boot + Koyeb para deploy gratuito.</p>
+          </div>
+        </a>
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=2" alt="">
+          <div class="card-body">
+            <div class="date">2024-01-11</div>
+            <h3>LinkedIn 2024: El arte de vender tu perfil profesional</h3>
+            <p>Cómo optimizar tu perfil de LinkedIn para recruiters en 2024.</p>
+          </div>
+        </a>
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=3" alt="">
+          <div class="card-body">
+            <div class="date">2022-10-31</div>
+            <h3>Cosas Astro.js: Mi nueva web</h3>
+            <p>Por qué elegí Astro para mi web personal y qué aprendí.</p>
+          </div>
+        </a>
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=4" alt="">
+          <div class="card-body">
+            <div class="date">2022-08-03</div>
+            <h3>Pruebas con Svelte: Un framework que mola</h3>
+            <p>Mis primeros pasos con Svelte y por qué me sorprendió.</p>
+          </div>
+        </a>
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=5" alt="">
+          <div class="card-body">
+            <div class="date">2021-09-30</div>
+            <h3>LinkedIn: Mi experiencia como developer</h3>
+            <p>Reflexiones sobre mi carrera y cómo LinkedIn me ayudó.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BLOG IA: second marquee ===== -->
+<section>
+  <div class="section-title">// <span style="color:#e20de9">IA</span> PUBLICACIONES INTELIGENCIA ARTIFICIAL</div>
+  <div class="marqy blog-marquee" data-direction="left" data-pause-on-hover>
+    <div class="marqy-inner">
+      <div class="marqy-content">
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=10" alt="">
+          <div class="card-body">
+            <div class="date">2025-01-16</div>
+            <h3>🚀 Cómo actualicé mi web con IA en MENOS de 1 hora</h3>
+            <p>Lo que sería medio día de trabajo se hizo en 40 minutos con un asistente de IA.</p>
+          </div>
+        </a>
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=11" alt="">
+          <div class="card-body">
+            <div class="date">2025-03-15</div>
+            <h3>Hermes Agent: Mi asistente personal con IA</h3>
+            <p>Cómo configuré un agente autónomo que gestiona mis tareas.</p>
+          </div>
+        </a>
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=12" alt="">
+          <div class="card-body">
+            <div class="date">2025-06-01</div>
+            <h3>Sonajero News: Aprendiendo inglés con podcast IA</h3>
+            <p>Un podcast diario generado con TTS dual-voice para practicar inglés.</p>
+          </div>
+        </a>
+      </div>
+      <div class="marqy-content" aria-hidden="true">
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=10" alt="">
+          <div class="card-body">
+            <div class="date">2025-01-16</div>
+            <h3>🚀 Cómo actualicé mi web con IA en MENOS de 1 hora</h3>
+            <p>Lo que sería medio día de trabajo se hizo en 40 minutos con un asistente de IA.</p>
+          </div>
+        </a>
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=11" alt="">
+          <div class="card-body">
+            <div class="date">2025-03-15</div>
+            <h3>Hermes Agent: Mi asistente personal con IA</h3>
+            <p>Cómo configuré un agente autónomo que gestiona mis tareas.</p>
+          </div>
+        </a>
+        <a href="#" class="card">
+          <img class="card-img" src="https://picsum.photos/400/200?random=12" alt="">
+          <div class="card-body">
+            <div class="date">2025-06-01</div>
+            <h3>Sonajero News: Aprendiendo inglés con podcast IA</h3>
+            <p>Un podcast diario generado con TTS dual-voice para practicar inglés.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS: static grid ===== -->
+<section id="projects">
+  <div class="section-title">// <span>PROYECTOS</span> APIs Y FRONTS</div>
+  <div class="projects">
+    <a href="https://tbot.comovas.es/" target="_blank">
+      <h3>CodeIgniter Tbot</h3>
+      <p>PHP · CodeIgniter</p>
+    </a>
+    <a href="https://sbot.comovas.es/" target="_blank">
+      <h3>Strapi Sbot</h3>
+      <p>Node.js · Headless CMS</p>
+    </a>
+    <a href="https://telegraph.comovas.es" target="_blank">
+      <h3>Telegraph</h3>
+      <p>Node.js · Telegraph CMS</p>
+    </a>
+    <a href="https://cosasdev.comovas.es" target="_blank">
+      <h3>CosasDev</h3>
+      <p>React · Frontend</p>
+    </a>
+    <a href="https://sidet.cosasdev.comovas.es/#/tareas" target="_blank">
+      <h3>Sidet</h3>
+      <p>Vue · MySQL · PHP</p>
+    </a>
+    <a href="https://knexjs.org/" target="_blank">
+      <h3>Knex.js</h3>
+      <p>SQL Query Builder</p>
+    </a>
+  </div>
+</section>
+
+<!-- ===== SOCIAL: marquee ===== -->
+<section>
+  <div class="section-title">// <span>CONNECT</span> REDES Y ENLACES</div>
+  <div class="marqy social-marquee" data-direction="left" data-pause-on-hover>
+    <div class="marqy-inner">
+      <div class="marqy-content">
+        <a href="https://github.com/sergiocomovas/" target="_blank" class="social-card">
+          <div class="avatar">🐙</div>
+          <div class="info">
+            <span class="name">sergiocomovas</span>
+            <span class="desc">Repositorio de GITHUB</span>
+          </div>
+        </a>
+        <a href="https://x.com/sergiocomovas" target="_blank" class="social-card">
+          <div class="avatar">𝕏</div>
+          <div class="info">
+            <span class="name">@SergioComoVas</span>
+            <span class="desc">Cuenta de 𝕏 principal</span>
+          </div>
+        </a>
+        <a href="https://www.threads.net/@sergiocomovas" target="_blank" class="social-card">
+          <div class="avatar">🧵</div>
+          <div class="info">
+            <span class="name">@SergioComoVas</span>
+            <span class="desc">Cuenta de Threads</span>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/sergiocomovas/" target="_blank" class="social-card">
+          <div class="avatar">💼</div>
+          <div class="info">
+            <span class="name">Sergio R. González</span>
+            <span class="desc">Perfil LinkedIn</span>
+          </div>
+        </a>
+        <a href="https://ko-fi.com/R6R52N4QJ" target="_blank" class="social-card">
+          <div class="avatar">☕</div>
+          <div class="info">
+            <span class="name">Ko-fi</span>
+            <span class="desc">Apoya mi trabajo</span>
+          </div>
+        </a>
+      </div>
+      <div class="marqy-content" aria-hidden="true">
+        <a href="https://github.com/sergiocomovas/" target="_blank" class="social-card">
+          <div class="avatar">🐙</div>
+          <div class="info">
+            <span class="name">sergiocomovas</span>
+            <span class="desc">Repositorio de GITHUB</span>
+          </div>
+        </a>
+        <a href="https://x.com/sergiocomovas" target="_blank" class="social-card">
+          <div class="avatar">𝕏</div>
+          <div class="info">
+            <span class="name">@SergioComoVas</span>
+            <span class="desc">Cuenta de 𝕏 principal</span>
+          </div>
+        </a>
+        <a href="https://www.threads.net/@sergiocomovas" target="_blank" class="social-card">
+          <div class="avatar">🧵</div>
+          <div class="info">
+            <span class="name">@SergioComoVas</span>
+            <span class="desc">Cuenta de Threads</span>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/sergiocomovas/" target="_blank" class="social-card">
+          <div class="avatar">💼</div>
+          <div class="info">
+            <span class="name">Sergio R. González</span>
+            <span class="desc">Perfil LinkedIn</span>
+          </div>
+        </a>
+        <a href="https://ko-fi.com/R6R52N4QJ" target="_blank" class="social-card">
+          <div class="avatar">☕</div>
+          <div class="info">
+            <span class="name">Ko-fi</span>
+            <span class="desc">Apoya mi trabajo</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-content">
+    <div class="contact">
+      CORREO <a href="mailto:sergio@comovas.es">sergio@comovas.es</a>
+      · <a href="/legal">Aviso Legal</a>
+    </div>
+    <div class="psm">
+      COMOVAS.ES © 2026 · PSM I Certified
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

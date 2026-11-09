@@ -20,6 +20,25 @@
   font-display: swap;
 }
 
+/* ===== Animaciones scroll-driven (sustituye a GSAP, nov 2026) =====
+   Equivalente al antiguo GsapAnimations: fade + slide-up al entrar en
+   viewport, una vez. Con view() corre en el compositor, sin JS ni listeners.
+   Los navegadores sin soporte simplemente ven el contenido estático. */
+@supports (animation-timeline: view()) {
+  [data-gsap] {
+    animation: entrada-gsap linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 20%;
+  }
+  @keyframes entrada-gsap {
+    from { opacity: 0; translate: 0 50px; }
+    to   { opacity: 1; translate: 0 0; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-gsap] { animation: none !important; opacity: 1 !important; translate: none !important; }
+}
+
 /* ===== Tipografía base y escala modular ===== */
 @layer base {
   body {

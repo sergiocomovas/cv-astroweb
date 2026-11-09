@@ -9,7 +9,6 @@ import Cols from "../components/ColsComponent.tsx";
 import EstaWeb from "../components/EstaWebComponent.tsx";
 import Fronts from "../components/FrontsComponent.astro";
 import IntroLinks from "../components/IntroLinksComponent.astro";
-import GsapAnimations from "../components/GsapAnimations.astro";
 
 const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -61,7 +60,6 @@ const iaPosts = (await getCollection("blog_ia"))
       <IntroLinks />
     </main>
 
-    <GsapAnimations />
     <Footer />
   </body>
 </html>

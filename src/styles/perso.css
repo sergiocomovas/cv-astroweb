@@ -165,21 +165,29 @@
   }
 }
 
-/* ===== Scrollbars personalizadas ===== */
+/* ===== Scrollbars personalizadas (estándar + fallback WebKit legacy) ===== */
 @layer utilities {
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  :root {
+    --scrollbar-thumb: rgba(0, 255, 255, 0.5);
+    --scrollbar-track: transparent;
   }
-  ::-webkit-scrollbar-track {
-    background: transparent;
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
   }
-  ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 3px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 255, 255, 0.3);
+  /* Legacy fallback para WebKit/Blink sin scrollbar-color (pre-2024) */
+  @supports not (scrollbar-color: auto) {
+    html::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    html::-webkit-scrollbar-track {
+      background: var(--scrollbar-track);
+    }
+    html::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 3px;
+    }
   }
 }
 

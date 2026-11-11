@@ -110,11 +110,14 @@ footer .psm{opacity:.4;font-size:.75rem}
 .neon{color:#0ff}
 .purple{color:#e20de9}
 
-/* ===== Scrollbar ===== */
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:rgba(0,255,255,.3)}
+/* ===== Scrollbar (estándar + fallback WebKit legacy) ===== */
+:root{--sb-thumb:rgba(0,255,255,.5);--sb-track:transparent}
+html{scrollbar-width:thin;scrollbar-color:var(--sb-thumb) var(--sb-track)}
+@supports not (scrollbar-color: auto){
+  html::-webkit-scrollbar{width:6px;height:6px}
+  html::-webkit-scrollbar-track{background:var(--sb-track)}
+  html::-webkit-scrollbar-thumb{background:var(--sb-thumb);border-radius:3px}
+}
 </style>
 </head>
 <body>
